@@ -4,9 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 
-import edu.vassar.cmpu203.dungeongame.model.Maze;
 import edu.vassar.cmpu203.dungeongame.view.IMazeViewMvc;
 import edu.vassar.cmpu203.dungeongame.view.MazeViewMvc;
 
