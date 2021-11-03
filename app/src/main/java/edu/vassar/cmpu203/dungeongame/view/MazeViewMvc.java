@@ -21,6 +21,24 @@ public class MazeViewMvc implements IMazeViewMvc{
                 listener.onPlayerMoveInput('u');
             }
         });
+        this.binding.downArrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onPlayerMoveInput('d');
+            }
+        });
+        this.binding.leftArrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onPlayerMoveInput('l');
+            }
+        });
+        this.binding.rightArrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onPlayerMoveInput('r');
+            }
+        });
 
     }
 
