@@ -18,7 +18,6 @@ public class Player {
         return this.pos;
     }
 
-
     public void updatePos(char dir, Maze m) {
         try {
             switch (dir) {

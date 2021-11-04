@@ -84,7 +84,61 @@ public class Maze {
                     mazeArray[nodeXPos - 1][nodeYPos].dbarrier = false; }
             }
         }
+              /*
+        Preliminary Room Generator-
+        For this implementation, a room is not a special object or anyways different from just hallway
+        This essentially creates square/rectangular spaces inside of which the walls are all broken
+        Though it does not break or create any new walls along the edge of the room.
+        This is a very basic way of getting around the Kruskal method's thing of not creating loops
+         */
+        int roomCount = xaxis / 4;
+        /* I have this being an arbitrary number because I didn't want it being random and just accidentally
+        overwhelming the entire maze with empty space */
+        while (roomCount >= 0) {
+            int roomHeight; //this is the vertical size of a given room
+            int roomWidth; //this is the horizontal size of a given room
+            /* The following cases are just accounting for room size compared to overall maze size. The larger
+            the Maze gets, the smaller the relative room size needs to be because otherwise it would just
+            completely overwhelm the maze with oodles of empty space */
+            if (xaxis <= 15) {
+                roomHeight = (int) (Math.random() * (xaxis / 2));
+                roomWidth = (int) (Math.random() * (yaxis / 2));
+                while (roomHeight < 2) {
+                    /*Each if case has these- it's to make sure the rooms aren't of size 2, which is just
+                    completely indistinguishable from regular maze hallway */
+                    roomHeight = (int) (Math.random() * (xaxis / 2));
+                    roomWidth = (int) (Math.random() * (yaxis / 2)); } }
+            else if (xaxis <= 30){
+                roomHeight = (int) (Math.random() * (xaxis / 3));
+                roomWidth = (int) (Math.random() * (yaxis / 3));
+                while (roomHeight < 2) {
+                    roomHeight = (int) (Math.random() * (xaxis / 3));
+                    roomWidth = (int) (Math.random() * (yaxis / 3)); } }
+            else {
+                roomHeight = (int) (Math.random() * (xaxis / 4));
+                roomWidth = (int) (Math.random() * (yaxis / 4));
+                while (roomHeight < 2) {
+                    roomHeight = (int) (Math.random() * (xaxis / 4));
+                    roomWidth = (int) (Math.random() * (yaxis / 4)); } }
+            /*these are the Y and X positions of the top corner of the room in the maze
+            with accounting to make sure that a room never goes off the "edge" of a maze
+             */
+            int roomYPos = (int)(Math.random() * (xaxis - roomHeight));
+            int roomXPos = (int)(Math.random() * (yaxis - roomWidth));
+            for (int y = roomYPos; y < roomHeight + roomYPos; y++){
+                for (int x = roomXPos; x < roomWidth + roomXPos; x++){
+                    if (y == roomHeight && x == roomWidth) {
+                        break; }
+                    else if (y == roomHeight) {
+                        mazeArray[x][y].dbarrier = false; }
+                    else if (x == roomWidth) {
+                        mazeArray[x][y].rbarrier = false; }
+                    else{
+                        mazeArray[x][y].dbarrier = false;
+                        mazeArray[x][y].rbarrier = false; } } }
+            roomCount--; }
     }
+
     public boolean checkValid(int[] pos, char dir) {
         //This method checks if a move in a given direction will be valid or not
         //"valid" being if there is a wall in the way or not
@@ -112,6 +166,7 @@ public class Maze {
         }
         return validity;
     }
+
     public static void main(String[] args) {
         //Currently this is just diagnostic stuff. I wanted to be able to see how if the mazeArray and adjacency tables were being correctly spat out.
         int size = 5;

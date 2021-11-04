@@ -15,7 +15,7 @@ public class DisplayMazeConsole {
         String avatar = Character.toString(lSymbol) + Character.toString(rSymbol);
 
         for (int i = 0; i < size; i++) {
-            out += "+ == ";
+            out += "+ -- ";
         }
         out += "+\n";
         for (int i = 0; i < size; i++) {
@@ -27,7 +27,7 @@ public class DisplayMazeConsole {
             }
             out += "\n";
             for (int j = 0; j < size; j++) {
-                out += m.mazeArray[i][j].dbarrier ? "+ == " : "+    ";
+                out += m.mazeArray[i][j].dbarrier ? "+ -- " : "+    ";
             }
             out += "+\n";
         }
