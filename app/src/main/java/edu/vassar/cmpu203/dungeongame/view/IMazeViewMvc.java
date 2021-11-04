@@ -10,4 +10,6 @@ public interface IMazeViewMvc {
 
     public View getRootView();
 
+    public void updateMaze(String mazeText);
+
 }
