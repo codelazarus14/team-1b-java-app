@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">Dungeon Game</string>
     <string name="maze_view">Maze Goes Here</string>
-    <string name="arrow">^</string>
+    <string name="arrow">V</string>
 </resources>
