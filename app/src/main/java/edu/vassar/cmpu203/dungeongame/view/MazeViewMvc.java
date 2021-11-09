@@ -6,8 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 
 import edu.vassar.cmpu203.dungeongame.databinding.ActivityMainBinding;
-import edu.vassar.cmpu203.dungeongame.model.Maze;
-import edu.vassar.cmpu203.dungeongame.model.Player;
 
 public class MazeViewMvc implements IMazeViewMvc{
     private ActivityMainBinding binding;

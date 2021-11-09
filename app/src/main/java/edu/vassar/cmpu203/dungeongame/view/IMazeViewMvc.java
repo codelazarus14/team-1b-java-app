@@ -4,12 +4,12 @@ import android.view.View;
 
 public interface IMazeViewMvc {
 
-    public interface Listener{
+    interface Listener{
         void onPlayerMoveInput(char dir);
     }
 
-    public View getRootView();
+    View getRootView();
 
-    public void updateMaze(String mazeText);
+    void updateMaze(String mazeText);
 
 }
