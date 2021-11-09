@@ -57,4 +57,7 @@ public class MazeViewMvc implements IMazeViewMvc{
         this.binding.mazeView.setText(mazeText);
 
     }
+
+    // will want to create new updateMaze method that takes in a position,
+    // renders player on top of maze instead of copying entire maze + player
 }
