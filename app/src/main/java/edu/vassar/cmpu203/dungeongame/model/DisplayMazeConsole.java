@@ -97,7 +97,6 @@ public class DisplayMazeConsole {
     public static void main(String[] args) {
         int size = 10;
         Maze m = new Maze(size);
-        m.buildMaze();
         Player p = new Player(0,0);
         ui(size, m, p);
     }

@@ -30,10 +30,10 @@ public class MainActivity extends AppCompatActivity implements IMazeViewMvc.List
     @Override
     public void onPlayerMoveInput(char dir) {
         Log.i("DungeonGame", "controller received player move, handling: " + Character.toString(dir));
-//        p.updatePos(dir, maze);
-//        int[] playerPos = p.getPos();
-//        Log.i("DungeonGame", "new player position is " + playerPos[0] + "," + playerPos[1]);
-//        mazeViewMvc.updateMaze(maze.toString(p));
+        p.updatePos(dir, maze);
+        int[] playerPos = p.getPos();
+        Log.i("DungeonGame", "new player position is " + playerPos[0] + "," + playerPos[1]);
+        mazeViewMvc.updateMaze(maze.toString(p));
     }
 
     // :[
