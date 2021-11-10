@@ -18,8 +18,11 @@ public class ControllerActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        this.maze = new Maze(5);
         this.mainView = new MainView((this));
+
         setContentView(this.mainView.getRootView());
+
         this.mainView.displayFragment(new MazeFragment());
     }
 }
