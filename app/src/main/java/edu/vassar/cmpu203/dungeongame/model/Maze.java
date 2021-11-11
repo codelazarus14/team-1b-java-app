@@ -171,11 +171,16 @@ public class Maze {
         char lSymbol = 8838;
         char rSymbol = 8839;
         String avatar = Character.toString(lSymbol) + Character.toString(rSymbol);
+        int size = xaxis;
 
         int iPos = p.getPos()[1];
         int jPos = p.getPos()[0];
 
         for (int j = jPos - 1; j < jPos + 2; j++) {
+            if (iPos == 0) {
+                out += "+ -------- ";
+                continue;
+            }
             try {
                 out += this.mazeArray[iPos - 2][j].dbarrier ? "+ -------- " : "+          ";
             } catch (Exception e) {
@@ -191,10 +196,11 @@ public class Maze {
                 out += "|";
             }
             for (int j = jPos - 1; j < jPos + 2; j++) {
+                String str = j == size - 1 && i == size - 1 ? "E" : " ";
                 try {
-                    out += this.mazeArray[i][j].rbarrier ? "          |" : "           ";
+                    out += this.mazeArray[i][j].rbarrier ? " " + str + "      " + str + " |" : " " + str + "      " + str + "  ";
                 } catch (Exception e) {
-                    out += "          |";
+                    out +=  " " + str + "      " + str + " |";;
                 }
             }
             out += "\n";
@@ -218,10 +224,11 @@ public class Maze {
                 out += "|";
             }
             for (int j = jPos - 1; j < jPos + 2; j++) {
+                String str = j == size - 1 && i == size - 1 ? "E" : " ";
                 try {
-                    out += this.mazeArray[i][j].rbarrier ? "          |" : "           ";
+                    out += this.mazeArray[i][j].rbarrier ? " " + str + "      " + str + " |" : " " + str + "      " + str + "  ";
                 } catch (Exception e) {
-                    out += "          |";
+                    out += " " + str + "      " + str + " |";
                 }
             }
             out += "\n";
