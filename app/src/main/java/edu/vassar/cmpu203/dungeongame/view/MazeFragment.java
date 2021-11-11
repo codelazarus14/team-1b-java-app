@@ -1,66 +1,51 @@
 package edu.vassar.cmpu203.dungeongame.view;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import edu.vassar.cmpu203.dungeongame.R;
+import androidx.fragment.app.Fragment;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link MazeFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class MazeFragment extends Fragment {
+import edu.vassar.cmpu203.dungeongame.databinding.FragmentMazeBinding;
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+public class MazeFragment extends Fragment implements IMazeView {
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private FragmentMazeBinding binding;
+    private String mazeText;
+    private Listener listener;
 
-    public MazeFragment() {
+    public MazeFragment(Listener listener, String mazeText) {
         // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment MazeFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static MazeFragment newInstance(String param1, String param2) {
-        MazeFragment fragment = new MazeFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+        this.mazeText = mazeText;
+        this.listener = listener;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_maze, container, false);
+        this.binding = FragmentMazeBinding.inflate(inflater);
+        return this.binding.getRoot();
+    }
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        updateMaze(mazeText);
+
+        this.binding.upArrow.setOnClickListener(clickedView ->
+                listener.onPlayerMoveInput('u', MazeFragment.this));
+        this.binding.downArrow.setOnClickListener(clickedView ->
+                listener.onPlayerMoveInput('d', MazeFragment.this));
+        this.binding.leftArrow.setOnClickListener(clickedView ->
+                listener.onPlayerMoveInput('l', MazeFragment.this));
+        this.binding.rightArrow.setOnClickListener(clickedView ->
+                listener.onPlayerMoveInput('r', MazeFragment.this));
+    }
+
+    @Override
+    public void updateMaze(String mazeText) {
+        Log.i("DungeonGame", "updating maze view");
+        this.binding.mazeView.setText(mazeText);
     }
 }

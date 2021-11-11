@@ -13,8 +13,8 @@ public class MainView implements IMainView{
     private MainBinding binding;
 
     public MainView(FragmentActivity activity) {
-        this.activity = activity;
         this.binding = MainBinding.inflate(activity.getLayoutInflater());
+        this.activity = activity;
     }
 
     @Override
