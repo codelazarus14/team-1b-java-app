@@ -42,7 +42,8 @@ public class DisplayMazeConsole {
         System.out.println("Use WASD to move");
 
         while (true) {
-            System.out.println(toString(size, m, p));
+            //System.out.println(m.toString(p));
+            System.out.println(m.toObscuredString(p));
 
             String mov = scanner.nextLine().toLowerCase(Locale.ROOT);
 

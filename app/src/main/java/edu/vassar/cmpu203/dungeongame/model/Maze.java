@@ -166,6 +166,78 @@ public class Maze {
         return out;
     }
 
+    public String toObscuredString(Player p) {
+        String out = "";
+        char lSymbol = 8838;
+        char rSymbol = 8839;
+        String avatar = Character.toString(lSymbol) + Character.toString(rSymbol);
+
+        int iPos = p.getPos()[1];
+        int jPos = p.getPos()[0];
+
+        for (int j = jPos - 1; j < jPos + 2; j++) {
+            try {
+                out += this.mazeArray[iPos - 2][j].dbarrier ? "+ -------- " : "+          ";
+            } catch (Exception e) {
+                out += "+ -------- ";
+            }
+        }
+        out += "+\n";
+
+        for (int i = iPos - 1; i < iPos + 2; i++){
+            try {
+                out += this.mazeArray[i][jPos - 2].rbarrier ? "|" : " ";
+            } catch (Exception e) {
+                out += "|";
+            }
+            for (int j = jPos - 1; j < jPos + 2; j++) {
+                try {
+                    out += this.mazeArray[i][j].rbarrier ? "          |" : "           ";
+                } catch (Exception e) {
+                    out += "          |";
+                }
+            }
+            out += "\n";
+            try {
+                out += this.mazeArray[i][jPos - 2].rbarrier ? "|" : " ";
+            } catch (Exception e) {
+                out += "|";
+            }
+            for (int j = jPos - 1; j < jPos + 2; j++) {
+                String str = i == iPos && j == jPos ? avatar : "  ";
+                try {
+                    out += this.mazeArray[i][j].rbarrier ? "    " + str + "    |" : "    " + str + "     ";
+                } catch (Exception e) {
+                    out += "    " + str + "    |";
+                }
+            }
+            out += "\n";
+            try {
+                out += this.mazeArray[i][jPos - 2].rbarrier ? "|" : " ";
+            } catch (Exception e) {
+                out += "|";
+            }
+            for (int j = jPos - 1; j < jPos + 2; j++) {
+                try {
+                    out += this.mazeArray[i][j].rbarrier ? "          |" : "           ";
+                } catch (Exception e) {
+                    out += "          |";
+                }
+            }
+            out += "\n";
+            for (int j = jPos - 1; j < jPos + 2; j++) {
+                try {
+                    out += this.mazeArray[i][j].dbarrier ? "+ -------- " : "+          ";
+                }  catch (Exception e) {
+                    out += "+ -------- ";
+                }
+            }
+            out += "+\n";
+        }
+
+        return out;
+    }
+
     public static void main(String[] args) {
         //Currently this is just diagnostic stuff. I wanted to be able to see how if the mazeArray and adjacency tables were being correctly spat out.
         int size = 5;
