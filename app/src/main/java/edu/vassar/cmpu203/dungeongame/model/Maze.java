@@ -117,15 +117,18 @@ public class Maze {
         int x = pos[0];
         int y = pos[1];
         boolean validity = true;
+        if (x < 0 || y < 0 || x > xaxis - 1 || y > xaxis - 1) {
+            return false;
+        }
         switch (dir) {
             case 'u':
-                validity = y != 0 && !mazeArray[y - 1][x].dbarrier;
+                validity = y > 0 && !mazeArray[y - 1][x].dbarrier;
                 break;
             case 'd':
                 validity = !mazeArray[y][x].dbarrier;
                 break;
             case 'l':
-                validity = x != 0 && !mazeArray[y][x - 1].rbarrier;
+                validity = x > 0 && !mazeArray[y][x - 1].rbarrier;
                 break;
             case 'r':
                 validity = !mazeArray[y][x].rbarrier;
@@ -176,8 +179,93 @@ public class Maze {
         int iPos = p.getPos()[1];
         int jPos = p.getPos()[0];
 
+        boolean[][] visibleNode;
+        visibleNode = new boolean[3][3];
+        int[] vPos;
+        vPos = new int[2];
+        vPos[1] = iPos;
+        vPos[0] = jPos;
+        visibleNode[1][1] = true;
+        visibleNode[0][1] = this.checkValid(vPos,'u'); //up
+        visibleNode[1][2] = this.checkValid(vPos,'r'); //right
+        visibleNode[2][1] = this.checkValid(vPos,'d'); //down
+        visibleNode[1][0] = this.checkValid(vPos,'l'); //left
+        visibleNode[0][0] = (visibleNode[0][1] || visibleNode[1][0]); //top left
+        visibleNode[0][2] = (visibleNode[0][1] || visibleNode[1][2]); //top right
+        visibleNode[2][2] = (visibleNode[2][1] || visibleNode[1][2]); //bottom right
+        visibleNode[2][0] = (visibleNode[2][1] || visibleNode[1][0]); //bottom left
+        if (visibleNode[0][0]) {
+            boolean up = visibleNode[0][1];
+            boolean left = visibleNode[1][0];
+            if (up) {
+                vPos[1] = iPos - 1;
+                vPos[0] = jPos;
+                up = checkValid(vPos,'l');
+            }
+            if (left) {
+                vPos[1] = iPos;
+                vPos[0] = jPos - 1;
+                left = checkValid(vPos,'u');
+            }
+            visibleNode[0][0] = up || left;
+        }
+        if (visibleNode[0][2]) {
+            boolean up = visibleNode[0][1];
+            boolean right = visibleNode[1][2];
+            if (up) {
+                vPos[1] = iPos - 1;
+                vPos[0] = jPos;
+                up = checkValid(vPos,'r');
+            }
+            if (right) {
+                vPos[1] = iPos;
+                vPos[0] = jPos + 1;
+                right = checkValid(vPos,'u');
+            }
+            visibleNode[0][2] = up || right;
+        }
+        if (visibleNode[2][2]) {
+            boolean down = visibleNode[2][1];
+            boolean right = visibleNode[1][2];
+            if (down) {
+                vPos[1] = iPos + 1;
+                vPos[0] = jPos;
+                down = checkValid(vPos,'r');
+            }
+            if (right) {
+                vPos[1] = iPos;
+                vPos[0] = jPos + 1;
+                right = checkValid(vPos,'d');
+            }
+            visibleNode[2][2] = down || right;
+        }
+        if (visibleNode[2][0]) {
+            boolean down = visibleNode[2][1];
+            boolean left = visibleNode[1][0];
+            if (down) {
+                vPos[1] = iPos + 1;
+                vPos[0] = jPos;
+                down = checkValid(vPos,'l');
+            }
+            if (left) {
+                vPos[1] = iPos;
+                vPos[0] = jPos - 1;
+                left = checkValid(vPos,'d');
+            }
+            visibleNode[2][0] = down || left;
+        }
+
+//        String visibility = "";
+//        for (int i = 0; i < 3; i++) {
+//            for (int j = 0; j < 3; j++){
+//                oop += visibleNode[i][j] ? "t " : "f ";
+//            }
+//            visibility += "\n";
+//        }
+//        System.out.println(visibility);
+
         for (int j = jPos - 1; j < jPos + 2; j++) {
-            if (iPos < 2 || j < 0 || iPos > 6 || j > 4) {
+            if (iPos < 2 || j < 0 || iPos > size + 1 || j > size -1) {
                 out += "+ -------- ";
             } else {
                 out += this.mazeArray[iPos - 2][j].dbarrier ? "+ -------- " : "+          ";
@@ -186,42 +274,42 @@ public class Maze {
         out += "+\n";
 
         for (int i = iPos - 1; i < iPos + 2; i++){
-            if (i < 0 || jPos < 2 || i > 4 || jPos > 6) {
+            if (i < 0 || jPos < 2 || i > size - 1 || jPos > size + 1) {
                 out += "|";
             } else {
                 out += this.mazeArray[i][jPos - 2].rbarrier ? "|" : " ";
             }
             for (int j = jPos - 1; j < jPos + 2; j++) {
                 String str = j == size - 1 && i == size - 1 ? "E" : " ";
-                if (i < 0 || j < 0 || i > 4 || j > 4) {
+                if (i < 0 || j < 0 || i > size - 1|| j > size - 1) {
                     out +=  " " + str + "      " + str + " |";
                 } else {
                     out += this.mazeArray[i][j].rbarrier ? " " + str + "      " + str + " |" : " " + str + "      " + str + "  ";
                 }
             }
             out += "\n";
-            if (i < 0 || jPos < 2 || i > 4 || jPos > 6) {
+            if (i < 0 || jPos < 2 || i > size - 1 || jPos > size + 1) {
                 out += "|";
             } else {
-                out += "|";
+                out += this.mazeArray[i][jPos - 2].rbarrier ? "|" : " ";
             }
             for (int j = jPos - 1; j < jPos + 2; j++) {
                 String str = i == iPos && j == jPos ? avatar : "  ";
-                if (i < 0 || j < 0 || i > 4 || j > 4) {
+                if (i < 0 || j < 0 || i > size - 1 || j > size - 1) {
                     out += "    " + str + "    |";
                 } else {
                     out += this.mazeArray[i][j].rbarrier ? "    " + str + "    |" : "    " + str + "     ";
                 }
             }
             out += "\n";
-            if (i < 0 || jPos < 2 || i > 4 || jPos > 6) {
+            if (i < 0 || jPos < 2 || i > size - 1 || jPos > size + 1) {
                 out += "|";
             } else {
                 out += this.mazeArray[i][jPos - 2].rbarrier ? "|" : " ";
             }
             for (int j = jPos - 1; j < jPos + 2; j++) {
                 String str = j == size - 1 && i == size - 1 ? "E" : " ";
-                if (i < 0 || j < 0 || i > 4 || j > 4) {
+                if (i < 0 || j < 0 || i > size - 1 || j > size - 1) {
                     out += " " + str + "      " + str + " |";
                 } else {
                     out += this.mazeArray[i][j].rbarrier ? " " + str + "      " + str + " |" : " " + str + "      " + str + "  ";
@@ -229,7 +317,7 @@ public class Maze {
             }
             out += "\n";
             for (int j = jPos - 1; j < jPos + 2; j++) {
-                if (i < 0 || j < 0 || i > 4 || j > 4) {
+                if (i < 0 || j < 0 || i > size - 1 || j > size - 1) {
                     out += "+ -------- ";
                 } else {
                     out += this.mazeArray[i][j].dbarrier ? "+ -------- " : "+          ";
