@@ -177,66 +177,62 @@ public class Maze {
         int jPos = p.getPos()[0];
 
         for (int j = jPos - 1; j < jPos + 2; j++) {
-            if (iPos == 0) {
+            if (iPos < 2 || j < 0 || iPos > 6 || j > 4) {
                 out += "+ -------- ";
-                continue;
-            }
-            try {
+            } else {
                 out += this.mazeArray[iPos - 2][j].dbarrier ? "+ -------- " : "+          ";
-            } catch (Exception e) {
-                out += "+ -------- ";
             }
         }
         out += "+\n";
 
         for (int i = iPos - 1; i < iPos + 2; i++){
-            try {
-                out += this.mazeArray[i][jPos - 2].rbarrier ? "|" : " ";
-            } catch (Exception e) {
+            if (i < 0 || jPos < 2 || i > 4 || jPos > 6) {
                 out += "|";
+            } else {
+                out += this.mazeArray[i][jPos - 2].rbarrier ? "|" : " ";
             }
             for (int j = jPos - 1; j < jPos + 2; j++) {
                 String str = j == size - 1 && i == size - 1 ? "E" : " ";
-                try {
+                if (i < 0 || j < 0 || i > 4 || j > 4) {
+                    out +=  " " + str + "      " + str + " |";
+                } else {
                     out += this.mazeArray[i][j].rbarrier ? " " + str + "      " + str + " |" : " " + str + "      " + str + "  ";
-                } catch (Exception e) {
-                    out +=  " " + str + "      " + str + " |";;
                 }
             }
             out += "\n";
-            try {
-                out += this.mazeArray[i][jPos - 2].rbarrier ? "|" : " ";
-            } catch (Exception e) {
+            if (i < 0 || jPos < 2 || i > 4 || jPos > 6) {
+                out += "|";
+            } else {
                 out += "|";
             }
             for (int j = jPos - 1; j < jPos + 2; j++) {
                 String str = i == iPos && j == jPos ? avatar : "  ";
-                try {
-                    out += this.mazeArray[i][j].rbarrier ? "    " + str + "    |" : "    " + str + "     ";
-                } catch (Exception e) {
+                if (i < 0 || j < 0 || i > 4 || j > 4) {
                     out += "    " + str + "    |";
+                } else {
+                    out += this.mazeArray[i][j].rbarrier ? "    " + str + "    |" : "    " + str + "     ";
                 }
             }
             out += "\n";
-            try {
-                out += this.mazeArray[i][jPos - 2].rbarrier ? "|" : " ";
-            } catch (Exception e) {
+            if (i < 0 || jPos < 2 || i > 4 || jPos > 6) {
                 out += "|";
+            } else {
+                out += this.mazeArray[i][jPos - 2].rbarrier ? "|" : " ";
             }
             for (int j = jPos - 1; j < jPos + 2; j++) {
                 String str = j == size - 1 && i == size - 1 ? "E" : " ";
-                try {
-                    out += this.mazeArray[i][j].rbarrier ? " " + str + "      " + str + " |" : " " + str + "      " + str + "  ";
-                } catch (Exception e) {
+                if (i < 0 || j < 0 || i > 4 || j > 4) {
                     out += " " + str + "      " + str + " |";
+                } else {
+                    out += this.mazeArray[i][j].rbarrier ? " " + str + "      " + str + " |" : " " + str + "      " + str + "  ";
                 }
             }
             out += "\n";
             for (int j = jPos - 1; j < jPos + 2; j++) {
-                try {
-                    out += this.mazeArray[i][j].dbarrier ? "+ -------- " : "+          ";
-                }  catch (Exception e) {
+                if (i < 0 || j < 0 || i > 4 || j > 4) {
                     out += "+ -------- ";
+                } else {
+                    out += this.mazeArray[i][j].dbarrier ? "+ -------- " : "+          ";
                 }
             }
             out += "+\n";
