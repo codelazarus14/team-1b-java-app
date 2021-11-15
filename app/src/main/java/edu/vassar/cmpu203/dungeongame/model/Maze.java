@@ -266,17 +266,20 @@ public class Maze {
 
         for (int j = jPos - 1; j < jPos + 2; j++) {
             int arrJ = j + 1 - jPos;
-            if (iPos < 2 || j < 0 || iPos > size + 1 || j > size -1 || !visibleNode[0][arrJ]) {
+            if (!visibleNode[0][arrJ]) {
+                out += "+ ######## ";
+            } else if (iPos < 2 || j < 0 || iPos > size + 1 || j > size -1) {
                 out += "+ -------- ";
             } else {
                 out += this.mazeArray[iPos - 2][j].dbarrier ? "+ -------- " : "+          ";
             }
         }
         out += "+\n";
-
         for (int i = iPos - 1; i < iPos + 2; i++){
             int arrI = i + 1 - iPos;
-            if (i < 0 || jPos < 2 || i > size - 1 || jPos > size + 1 || !visibleNode[arrI][0]) {
+            if (!visibleNode[arrI][0]) {
+                out += "#";
+            } else if (i < 0 || jPos < 2 || i > size - 1 || jPos > size + 1) {
                 out += "|";
             } else {
                 out += this.mazeArray[i][jPos - 2].rbarrier ? "|" : " ";
@@ -285,7 +288,9 @@ public class Maze {
                 int arrJ = j + 1 - jPos;
                 String str = j == size - 1 && i == size - 1 ? "E" : " ";
                 if (!visibleNode[arrI][arrJ]) {
-                    out += "##########|";
+                    String ob = "#";
+                    if (arrJ < 2 && visibleNode[arrI][arrJ + 1]) ob = "|";
+                    out += "##########" + ob;
                 } else if (i < 0 || j < 0 || i > size - 1|| j > size - 1) {
                     out +=  " " + str + "      " + str + " |";
                 } else {
@@ -293,7 +298,9 @@ public class Maze {
                 }
             }
             out += "\n";
-            if (i < 0 || jPos < 2 || i > size - 1 || jPos > size + 1 || !visibleNode[arrI][0]) {
+            if (!visibleNode[arrI][0]) {
+                out += "#";
+            } else if (i < 0 || jPos < 2 || i > size - 1 || jPos > size + 1 ) {
                 out += "|";
             } else {
                 out += this.mazeArray[i][jPos - 2].rbarrier ? "|" : " ";
@@ -302,7 +309,9 @@ public class Maze {
                 int arrJ = j + 1 - jPos;
                 String str = i == iPos && j == jPos ? avatar : "  ";
                 if (!visibleNode[arrI][arrJ]) {
-                    out += "##########|";
+                    String ob = "#";
+                    if (arrJ < 2 && visibleNode[arrI][arrJ + 1]) ob = "|";
+                    out += "##########" + ob;
                 } else if (i < 0 || j < 0 || i > size - 1 || j > size - 1) {
                     out += "    " + str + "    |";
                 } else {
@@ -310,7 +319,9 @@ public class Maze {
                 }
             }
             out += "\n";
-            if (i < 0 || jPos < 2 || i > size - 1 || jPos > size + 1 || !visibleNode[arrI][0]) {
+            if (!visibleNode[arrI][0]) {
+                out += "#";
+            } else if (i < 0 || jPos < 2 || i > size - 1 || jPos > size + 1) {
                 out += "|";
             } else {
                 out += this.mazeArray[i][jPos - 2].rbarrier ? "|" : " ";
@@ -319,7 +330,9 @@ public class Maze {
                 int arrJ = j + 1 - jPos;
                 String str = j == size - 1 && i == size - 1 ? "E" : " ";
                 if (!visibleNode[arrI][arrJ]) {
-                    out += "##########|";
+                    String ob = "#";
+                    if (arrJ < 2 && visibleNode[arrI][arrJ + 1]) ob = "|";
+                    out += "##########" + ob;
                 } else if (i < 0 || j < 0 || i > size - 1 || j > size - 1) {
                     out += " " + str + "      " + str + " |";
                 } else {
@@ -329,7 +342,10 @@ public class Maze {
             out += "\n";
             for (int j = jPos - 1; j < jPos + 2; j++) {
                 int arrJ = j + 1 - jPos;
-                if (i < 0 || j < 0 || i > size - 1 || j > size - 1 || !visibleNode[arrI][arrJ]) {
+                if (!visibleNode[arrI][arrJ]){
+                    if (arrI < 2 && visibleNode[arrI + 1][arrJ]) out += "+ -------- ";
+                    else out += "+ ######## ";
+                } else if (i < 0 || j < 0 || i > size - 1 || j > size - 1) {
                     out += "+ -------- ";
                 } else {
                     out += this.mazeArray[i][j].dbarrier ? "+ -------- " : "+          ";
