@@ -51,19 +51,28 @@ Room "1" - "*" Chest : \tContains\t\t
 ```plantuml
 @startuml
 hide footbox
-actor "Player" as player
+actor "User" as user
+participant ": ControllerActivity" as controller
+participant ": Player" as player
 participant ": Maze" as maze
+
+user -> controller : "onPlayerInput(dir)"
+
+controller -> player : move(dir)
+activate controller
 
 player -> player : move(dir)
 activate player
 
-player -> maze: checkValid(newPos)
+player -> maze: checkValid(Player.getPos(), dir)
 activate maze
 alt isValidPos
-  maze -> player : updatePos(newPos)
+  maze -> player : true
 else !isValidPos
-  maze -> player : updatePos(Player.getPos())
+  maze -> player : false
 end
+
+player -> player : updatePos(dir)
 
 @enduml
 ```
@@ -73,29 +82,13 @@ end
 ```plantuml
 @startuml
 hide footbox
-participant ": Game" as game
+participant ": ControllerActivity" as game
 participant ": Maze" as maze
+participant "mazeArray[n][n] : Node" as nodes
+participant "newNode : Node" as node
 
 game -->> maze **: create
 activate game
-
-maze -> maze : generateLevel
-activate maze
-
-ref over maze
-GenerateMaze
-end ref
-
-@enduml
-```
-```plantuml
-@startuml
-hide footbox
-mainframe sd GenerateMaze
-
-participant ": Maze" as maze
-participant "mazeGrid[n][n] : Node" as nodes
-participant "newNode : Node" as node
 
 maze -->> nodes** : create
 activate maze
@@ -110,7 +103,6 @@ end
 ```
 
 # Class Diagram
-
 ```plantuml
 @startuml
 
@@ -128,20 +120,39 @@ class Player{
 
 class Maze{
     +size : int
+    mazeArray : Node[][]
+    mazeTable : ArrayList<Pair>
+    djsTable : DisjointSets
+    adjTable : ArrayList<Pair>
 --
-    checkValid(pos) : void
-    generateMaze(size) : void
+    checkValid(pos) : boolean
+    buildMaze() : void
 }
 
 class Node{
-    barrier : boolean
-    index : int {range=[0-n^2]}
+    rbarrier : boolean
+    dbarrier : booleam
+    index : int {range=[0, n^2]}
 --
     getIndex() : int
 }
 
-Maze *- "(size^2) \nmazeGrid \n <ordered, Node[][]>" Node : \t\t\t\t
+class Pair{
+    int node1;
+    int node2;   
+}
+
+class DisjointSets{
+    ArrayList<ArrayList<Integer>> disjointSets;
+--
+    addPair(Pair n) : boolean
+}
+ 
+Maze *- "(size^2) \mazeArray \n <ordered, Node[][]>" Node : \t\t\t\t
 DisplayMazeConsole ->  "(1)\nPlayer\n" Player : \t\t
 DisplayMazeConsole -> "(1)Maze\n" Maze : \t\t
+DisjointSets --> "(1)djsTable" Maze : \t\t\t
+Pair -> "(2*(size*(size - 1)))\nMaze" Maze : \t\t
+Pair -> "(size - 1)\ndisjointSets" DisjointSets : \t\t\t
 @enduml
 '''
