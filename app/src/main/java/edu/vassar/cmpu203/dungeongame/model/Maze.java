@@ -89,8 +89,8 @@ public class Maze {
         This is a very basic way of getting around the Kruskal method's thing of not creating loops */
         int roomCount = xaxis / 4;
         while (roomCount >= 0) {
-            int roomHeight= (int) (Math.random() * (xaxis / 2)); //this is the vertical size of a given room
-            int roomWidth = (int) (Math.random() * (yaxis / 2)); //this is the horizontal size of a given room
+            int roomHeight= (int) (Math.random() * 4); //this is the vertical size of a given room
+            int roomWidth = (int) (Math.random() * 4); //this is the horizontal size of a given room
             /*these are the Y and X positions of the top corner of the room in the maze
             with accounting to make sure that a room never goes off the "edge" of a maze */
             int roomYPos = (int)(Math.random() * (xaxis - roomHeight));
@@ -289,7 +289,7 @@ public class Maze {
                 String str = j == size - 1 && i == size - 1 ? "E" : " ";
                 if (!visibleNode[arrI][arrJ]) {
                     String ob = "#";
-                    if (arrJ < 2 && visibleNode[arrI][arrJ + 1]) ob = "|";
+                    if (arrJ < 2 && visibleNode[arrI][arrJ + 1]) ob = (j < 0 || i < 0 || i > size - 1 || j > size -1) || this.mazeArray[i][j].rbarrier ? "|" : " ";
                     out += "##########" + ob;
                 } else if (i < 0 || j < 0 || i > size - 1|| j > size - 1) {
                     out +=  " " + str + "      " + str + " |";
@@ -310,7 +310,7 @@ public class Maze {
                 String str = i == iPos && j == jPos ? avatar : "  ";
                 if (!visibleNode[arrI][arrJ]) {
                     String ob = "#";
-                    if (arrJ < 2 && visibleNode[arrI][arrJ + 1]) ob = "|";
+                    if (arrJ < 2 && visibleNode[arrI][arrJ + 1]) ob = (j < 0 || i < 0 || i > size - 1 || j > size -1) || this.mazeArray[i][j].rbarrier ? "|" : " ";
                     out += "##########" + ob;
                 } else if (i < 0 || j < 0 || i > size - 1 || j > size - 1) {
                     out += "    " + str + "    |";
@@ -331,7 +331,7 @@ public class Maze {
                 String str = j == size - 1 && i == size - 1 ? "E" : " ";
                 if (!visibleNode[arrI][arrJ]) {
                     String ob = "#";
-                    if (arrJ < 2 && visibleNode[arrI][arrJ + 1]) ob = "|";
+                    if (arrJ < 2 && visibleNode[arrI][arrJ + 1]) ob = (j < 0 || i < 0 || i > size - 1 || j > size -1) || this.mazeArray[i][j].rbarrier ? "|" : " " ;
                     out += "##########" + ob;
                 } else if (i < 0 || j < 0 || i > size - 1 || j > size - 1) {
                     out += " " + str + "      " + str + " |";
@@ -343,9 +343,12 @@ public class Maze {
             for (int j = jPos - 1; j < jPos + 2; j++) {
                 int arrJ = j + 1 - jPos;
                 if (!visibleNode[arrI][arrJ]){
-                    if (arrI < 2 && visibleNode[arrI + 1][arrJ]) out += "+ -------- ";
-                    else out += "+ ######## ";
-                } else if (i < 0 || j < 0 || i > size - 1 || j > size - 1) {
+                    if (!(arrI < 2 && visibleNode[arrI + 1][arrJ])) {
+                        out += "+ ######## ";
+                        continue;
+                    }
+                }
+                if (i < 0 || j < 0 || i > size - 1 || j > size - 1) {
                     out += "+ -------- ";
                 } else {
                     out += this.mazeArray[i][j].dbarrier ? "+ -------- " : "+          ";

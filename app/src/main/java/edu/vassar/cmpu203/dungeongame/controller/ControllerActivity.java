@@ -22,13 +22,13 @@ public class ControllerActivity extends AppCompatActivity implements IMazeView.L
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        this.maze = new Maze(5);
+        this.maze = new Maze(8);
         this.p = new Player(0,0);
         this.mainView = new MainView((this));
 
         setContentView(this.mainView.getRootView());
 
-        this.mainView.displayFragment(new MazeFragment(this, maze.toString(p)));
+        this.mainView.displayFragment(new MazeFragment(this, maze.toObscuredString(p)));
     }
 
     @Override
@@ -37,6 +37,6 @@ public class ControllerActivity extends AppCompatActivity implements IMazeView.L
         p.updatePos(dir, maze);
         int[] playerPos = p.getPos();
         Log.i("DungeonGame", "new player position is " + playerPos[0] + "," + playerPos[1]);
-        mazeView.updateMaze(this.maze.toString(p));
+        mazeView.updateMaze(this.maze.toObscuredString(p));
     }
 }
