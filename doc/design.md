@@ -126,7 +126,6 @@ class Maze{
     adjTable : ArrayList<Pair>
 --
     checkValid(pos) : boolean
-    buildMaze() : void
 }
 
 class Node{

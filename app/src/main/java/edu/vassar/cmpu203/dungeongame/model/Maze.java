@@ -89,8 +89,8 @@ public class Maze {
         This is a very basic way of getting around the Kruskal method's thing of not creating loops */
         int roomCount = xaxis / 4;
         while (roomCount >= 0) {
-            int roomHeight= (int) (Math.random() * (xaxis / 2)); //this is the vertical size of a given room
-            int roomWidth = (int) (Math.random() * (yaxis / 2)); //this is the horizontal size of a given room
+            int roomHeight= (int) (Math.random() * 4); //this is the vertical size of a given room
+            int roomWidth = (int) (Math.random() * 4); //this is the horizontal size of a given room
             /*these are the Y and X positions of the top corner of the room in the maze
             with accounting to make sure that a room never goes off the "edge" of a maze */
             int roomYPos = (int)(Math.random() * (xaxis - roomHeight));
