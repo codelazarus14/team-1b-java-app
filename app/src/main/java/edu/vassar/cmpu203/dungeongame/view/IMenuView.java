@@ -4,7 +4,7 @@ import androidx.fragment.app.Fragment;
 
 public interface IMenuView {
     interface Listener {
-        void menuInput(char menuInput);
+        void onMenuInput();
     }
-    void displayFragment(Fragment fragment);
+    //void displayFragment(Fragment fragment);
 }

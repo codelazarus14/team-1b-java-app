@@ -2,4 +2,9 @@
     <string name="app_name">Dungeon Game</string>
     <string name="maze_view">Maze Goes Here</string>
     <string name="arrow">V</string>
+    <string-array name="difficulties">
+        <item>Easy</item>
+        <item>Medium</item>
+        <item>Hard</item>
+    </string-array>
 </resources>
