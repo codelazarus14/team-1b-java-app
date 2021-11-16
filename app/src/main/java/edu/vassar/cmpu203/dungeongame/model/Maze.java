@@ -171,9 +171,11 @@ public class Maze {
 
     public String toObscuredString(Player p) {
         String out = "";
-        char lSymbol = 8838;
-        char rSymbol = 8839;
-        String avatar = Character.toString(lSymbol) + Character.toString(rSymbol);
+        String avatar;
+//        char lSymbol = 8838;
+//        char rSymbol = 8839;
+//        avatar = Character.toString(lSymbol) + Character.toString(rSymbol);
+        avatar = "[]";
         int size = xaxis;
 
         int iPos = p.getPos()[1];
