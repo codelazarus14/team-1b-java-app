@@ -25,6 +25,7 @@ class Room{
 class Inventory{
 }
 class Loot{
+    value
 }
 class Chest{
 }
