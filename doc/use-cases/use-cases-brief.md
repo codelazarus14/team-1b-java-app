@@ -1,6 +1,6 @@
 # Use Case Briefs
 
-## Play level
+## Play game
 1. Player begins or has completed a level and is presented with two options: continue or exit
 2. Player chooses continue, [generate new Dungeon](./generate-dungeon.md)
 3. Game is saved to remember last level in persistent storage
