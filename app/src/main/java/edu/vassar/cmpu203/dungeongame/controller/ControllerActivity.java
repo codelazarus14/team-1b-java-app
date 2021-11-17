@@ -2,6 +2,7 @@ package edu.vassar.cmpu203.dungeongame.controller;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -39,4 +40,40 @@ public class ControllerActivity extends AppCompatActivity implements IMazeView.L
         Log.i("DungeonGame", "new player position is " + playerPos[0] + "," + playerPos[1]);
         mazeView.updateMaze(this.maze.toObscuredString(p));
     }
+
+    //:[
+    public void onPlayerMoveInput(char dir) {
+        Log.i("DungeonGame", "controller received player move, handling: " + dir);
+        p.updatePos(dir, maze);
+        int[] playerPos = p.getPos();
+        Log.i("DungeonGame", "new player position is " + playerPos[0] + "," + playerPos[1]);
+        this.mainView.displayFragment(new MazeFragment(this, maze.toObscuredString(p)));
+    }
+
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        switch (keyCode) {
+            case KeyEvent.KEYCODE_W:
+            case KeyEvent.KEYCODE_I:
+            case KeyEvent.KEYCODE_DPAD_UP:
+                this.onPlayerMoveInput('u');
+                break;
+            case KeyEvent.KEYCODE_A:
+            case KeyEvent.KEYCODE_J:
+            case KeyEvent.KEYCODE_DPAD_LEFT:
+                this.onPlayerMoveInput('l');
+                break;
+            case KeyEvent.KEYCODE_S:
+            case KeyEvent.KEYCODE_K:
+            case KeyEvent.KEYCODE_DPAD_DOWN:
+                this.onPlayerMoveInput('d');
+                break;
+            case KeyEvent.KEYCODE_D:
+            case KeyEvent.KEYCODE_L:
+            case KeyEvent.KEYCODE_DPAD_RIGHT:
+                this.onPlayerMoveInput('r');
+                break;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
 }
