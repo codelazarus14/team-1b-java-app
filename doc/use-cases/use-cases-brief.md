@@ -1,15 +1,15 @@
 # Use Case Briefs
 
 ## Play game
-1. Player begins or has completed a level and is presented with two options: continue or exit
-2. Player chooses continue, [generate new Dungeon](./generate-dungeon.md)
-3. Game is saved to remember last level in persistent storage
-4. (alternative) Player chooses exit, go to Leaderboard
+1. After pressing start button, game generates a new maze
+2. Player traverses maze with controls
+3. Periodically, game is saved temporarily to preserve player progress while switching apps
 
 ## Load Leaderboard
-1. Player is brought to leaderboard screen, displaying last run results
-2. Player enters name, displayed next to results
-3. Results are synchronized with online leaderboard
+1. Player is brought to leaderboard screen
+2. Results are displayed as the player's number of mazes completed and the total value of their inventory
+3. Player enters name, displayed next to the new score entered on the leaderboard
+4. Player confirms and results are saved locally to persistent storage, returning player to main menu
 
 ## Pick Lock
 1. Player encounters a lock on an interactable, likely a chest or door
@@ -23,19 +23,20 @@
    returns to the default game view.
 
 ## Fight
-1. Player encounters enemy, game shows combat screen
-2. Player presses button to attack, defend, or attempt escape
-3. Player defeats enemy, game closes combat screen, chance of gaining reward
-4. (casual) Player runs out of health, dies, and goes to Leaderboard
+1. Player encounters enemy, presented with a new view of their enemy and combat stats
+2. Player presses buttons to attack and defend, while enemy attacks in fixed intervals of time
+3. Player defeats enemy, game closes combat screen, there is a small chance of being presented with loot
 
 ## Open note
-1. Player encounters note, game displays pop-up window
-2. Text is randomly pulled from a collection of possible contents, and displayed on pop-up
+1. Player encounters note, game displays pop-up with note contents
+2. Text is randomly pulled from a collection of possible messages, displayed with confirm button
+3. Player taps confirm and the note is closed, content added to log of notes player has already found
 
 ## Loot
-1. Player encounters chest, uses interact control to open
-2. Game displays chest reward(s)
-3. Game adds reward(s) to player inventory
+1. Player encounters chest and interacts to open chest, or is being rewarded for defeating an enemy
+2. Game displays reward as a a dialogue with a particular artifact with icon and value displayed beneath
+3. Player confirms the reward and the loot is added to their inventory, total value of player inventory <br />
+now updated
 
 ```plantuml
 @startuml

@@ -29,7 +29,6 @@ Player returns to their game or has lost and the game is over
 1. Player encounters enemy, presented with a new view of their enemy and combat stats
 2. Player presses buttons to attack and defend, while enemy attacks in fixed intervals of time
 3. Player defeats enemy, game closes combat screen, there is a small chance of being presented with loot
-4. (casual) Player runs out of health, dies, and goes to Leaderboard
 
 ### Extensions
 

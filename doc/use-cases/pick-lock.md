@@ -23,7 +23,7 @@ Player is [Playing game](play-game.md)
 
 ### Postconditions
 
-Player has picked the lock and the interactable is now open for [Looting](use-cases-brief.md)
+Player has picked the lock and the interactable is now open for [Looting](loot.md)
 
 ### Main Success Scenario
 
