@@ -4,18 +4,33 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
+import java.lang.reflect.Array;
+
 class PlayerTest {
 
     @Test
     void getPos() {
         Player testPlayer = new Player();
-        int Pos[] = new int[2];
-        Pos[0] = 0;
-        Pos[1] = 0;
-        assertEquals(Pos ,testPlayer.getPos(), "Player Position Error!");
+        int pos[] = {0, 0};
+        assertEquals(pos ,testPlayer.getPos(), "Player Position Error!");
     }
 
     @Test
     void updatePos() {
+        Maze testMaze = new Maze(4);
+        Player testPlayer = new Player();
+        int[] pos = {0, 0};
+        if (testMaze.checkValid(testPlayer.getPos(), 'd')) pos[1]++;
+        testPlayer.updatePos('d',testMaze);
+        assertEquals(pos, testPlayer.getPos(), "Update Position Error");
+        if (testMaze.checkValid(testPlayer.getPos(), 'u')) pos[1]--;
+        testPlayer.updatePos('u',testMaze);
+        assertEquals(pos, testPlayer.getPos(), "Update Position Error");
+        if (testMaze.checkValid(testPlayer.getPos(), 'r')) pos[0]++;
+        testPlayer.updatePos('r',testMaze);
+        assertEquals(Pos, testPlayer.getPos(), "Update Position Error");
+        if (testMaze.checkValid(testPlayer.getPos(), 'r')) pos[0]--;
+        testPlayer.updatePos('l',testMaze);
+        assertEquals(Pos, testPlayer.getPos(), "Update Position Error");
     }
 }
