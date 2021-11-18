@@ -128,6 +128,7 @@ class Maze{
     adjTable : ArrayList<Pair>
 --
     checkValid(pos) : boolean
+    toObscuredString(Player) : String
 }
 
 class Node{
