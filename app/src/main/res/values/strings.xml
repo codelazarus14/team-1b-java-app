@@ -2,6 +2,8 @@
     <string name="app_name">Dungeon Game</string>
     <string name="maze_view">Maze Goes Here</string>
     <string name="arrow">V</string>
+    <string name="main_menu_title">Welcome to Main House</string>
+    <string name="start_button">Start</string>
     <string-array name="difficulties">
         <item>Easy</item>
         <item>Medium</item>

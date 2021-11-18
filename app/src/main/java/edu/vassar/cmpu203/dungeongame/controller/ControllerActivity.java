@@ -5,15 +5,19 @@ import android.util.Log;
 import android.view.KeyEvent;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
+import edu.vassar.cmpu203.dungeongame.databinding.FragmentMazeBinding;
 import edu.vassar.cmpu203.dungeongame.model.Maze;
 import edu.vassar.cmpu203.dungeongame.model.Player;
 import edu.vassar.cmpu203.dungeongame.view.IMainView;
 import edu.vassar.cmpu203.dungeongame.view.IMazeView;
+import edu.vassar.cmpu203.dungeongame.view.IMenuView;
 import edu.vassar.cmpu203.dungeongame.view.MainView;
 import edu.vassar.cmpu203.dungeongame.view.MazeFragment;
+import edu.vassar.cmpu203.dungeongame.view.MenuFragment;
 
-public class ControllerActivity extends AppCompatActivity implements IMazeView.Listener {
+public class ControllerActivity extends AppCompatActivity implements IMazeView.Listener, IMenuView.Listener {
 
     private Maze maze;
     private IMainView mainView;
@@ -23,13 +27,11 @@ public class ControllerActivity extends AppCompatActivity implements IMazeView.L
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        this.maze = new Maze(8);
-        this.p = new Player(0,0);
         this.mainView = new MainView((this));
 
         setContentView(this.mainView.getRootView());
 
-        this.mainView.displayFragment(new MazeFragment(this, maze.toObscuredString(p)));
+        this.mainView.displayFragment(new MenuFragment(this));
     }
 
     @Override
@@ -76,4 +78,14 @@ public class ControllerActivity extends AppCompatActivity implements IMazeView.L
         return super.onKeyDown(keyCode, event);
     }
 
+    @Override
+    public void onStartGame() {
+        //TODO - bundle arguments and pass to MazeFragment
+        Log.i("DungeonGame", "controller onStartGame()");
+
+        this.maze = new Maze(8);
+        this.p = new Player(0,0);
+        Fragment f = new MazeFragment(this, maze.toObscuredString(p));
+        this.mainView.displayFragment(f);
+    }
 }

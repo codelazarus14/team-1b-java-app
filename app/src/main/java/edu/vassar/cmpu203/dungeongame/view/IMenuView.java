@@ -1,10 +1,7 @@
 package edu.vassar.cmpu203.dungeongame.view;
 
-import androidx.fragment.app.Fragment;
-
 public interface IMenuView {
     interface Listener {
-        void onMenuInput();
+        void onStartGame();
     }
-    //void displayFragment(Fragment fragment);
 }

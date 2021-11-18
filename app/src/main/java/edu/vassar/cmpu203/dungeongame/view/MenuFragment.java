@@ -4,15 +4,17 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 
 import androidx.fragment.app.Fragment;
 
-import edu.vassar.cmpu203.dungeongame.databinding.FragmentMazeBinding;
+import edu.vassar.cmpu203.dungeongame.R;
 import edu.vassar.cmpu203.dungeongame.databinding.FragmentMenuBinding;
 
 public class MenuFragment extends Fragment implements IMenuView {
 
-    private IMenuView.Listener listener;
+    private Listener listener;
     private FragmentMenuBinding binding;
 
     //default constructor
@@ -29,12 +31,15 @@ public class MenuFragment extends Fragment implements IMenuView {
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        this.binding.startButton.setOnClickListener( (clickedView) -> {
-            this.listener.onMenuInput();
-            }
-        );
-        }
+        Spinner spinner = this.binding.difficultySpinner;
+//        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this.getContext(), R.array.difficulties, android.R.layout.simple_spinner_item);
+//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//        spinner.setAdapter(adapter);
 
+        //TODO : have working spinner to capture player input
+        spinner.setVisibility(View.INVISIBLE);
 
+        this.binding.startButton.setOnClickListener( (clickedView) -> this.listener.onStartGame());
     }
+}
 
