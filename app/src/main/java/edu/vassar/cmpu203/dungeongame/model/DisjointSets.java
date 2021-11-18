@@ -8,7 +8,9 @@ public class DisjointSets{
         ArrayList<Integer> disjointSubSet = new ArrayList<>();
         //in order for this to work, the disjoint begins with a single empty list within it
         disjointSets.add(disjointSubSet); }
-    public boolean addPair(Pair n){
+
+
+        public boolean addPair(Pair n){
         /* In this method the input pair is taken and the method sees if either, both, or neither of the mazeArray in the pair
          *  Are already a part of one of the sets in the disjoint */
         boolean validAdd = true;
