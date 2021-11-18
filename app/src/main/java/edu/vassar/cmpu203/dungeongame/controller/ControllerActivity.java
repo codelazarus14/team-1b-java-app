@@ -91,6 +91,7 @@ public class ControllerActivity extends AppCompatActivity implements IMazeView.L
         this.mainView.displayFragment(f);
     }
     public void onEnd() {
+        //TODO - trigger method in MazeFragment to display success, disable controls
         Log.i("DungeonGame", "congratulations");
     }
 }

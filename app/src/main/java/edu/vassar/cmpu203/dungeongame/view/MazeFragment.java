@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import edu.vassar.cmpu203.dungeongame.databinding.FragmentMazeBinding;
@@ -23,14 +25,14 @@ public class MazeFragment extends Fragment implements IMazeView {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
         this.binding = FragmentMazeBinding.inflate(inflater);
         return this.binding.getRoot();
     }
 
     @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         updateMaze(mazeText);
 
         this.binding.upArrow.setOnClickListener(clickedView ->
@@ -47,5 +49,10 @@ public class MazeFragment extends Fragment implements IMazeView {
     public void updateMaze(String mazeText) {
         Log.i("DungeonGame", "updating maze view");
         this.binding.mazeView.setText(mazeText);
+    }
+
+    @Override
+    public void setMazeSuccessConfiguration() {
+
     }
 }

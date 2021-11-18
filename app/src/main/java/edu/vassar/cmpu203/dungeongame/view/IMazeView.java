@@ -6,4 +6,6 @@ public interface IMazeView {
     }
 
     void updateMaze(String mazeText);
+
+    void setMazeSuccessConfiguration();
 }
