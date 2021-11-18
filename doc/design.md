@@ -112,6 +112,7 @@ skinparam classAttributeIconSize 0
 class DisplayMazeConsole {
     {static} public main(String[] args) : void
 }
+
 class Player{
     pos : int[] = {int, int}
 --
