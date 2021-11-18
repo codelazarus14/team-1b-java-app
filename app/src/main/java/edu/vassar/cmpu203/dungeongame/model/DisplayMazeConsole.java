@@ -3,6 +3,9 @@ package edu.vassar.cmpu203.dungeongame.model;
 import java.util.Locale;
 import java.util.Scanner;
 
+
+//DisplayMazeConsole used to be our method of drawing the Maze but we do not use it anymore
+//We are just keeping it in case we need to revert or draw upon old methods
 public class DisplayMazeConsole {
     public DisplayMazeConsole(){}
 

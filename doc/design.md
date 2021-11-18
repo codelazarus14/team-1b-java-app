@@ -133,8 +133,6 @@ class Node{
     rbarrier : boolean
     dbarrier : booleam
     index : int {range=[0, n^2]}
---
-    getIndex() : int
 }
 
 class Pair{

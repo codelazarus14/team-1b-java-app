@@ -5,17 +5,13 @@ public class Node {
     //1 = there is a wall, 0 = no wall
     boolean rbarrier = true;
     boolean dbarrier = true;
-    int xaxis;
-    int yaxis;
     /*There is no leftwall or upwall because if you think about it, the neighbor above it's dbarrier
      * will be this node's upwall. The same idea applies for leftwalls.
      */
     int id; //the id is essentially the node's position in the ArrayList. It's for convenient calling.
 
-    public Node(int xaxis, int yaxis, int id)
+    public Node(int id)
     { //row value is xaxis, column value is in yaxis
         this.id = id;
-        this.xaxis = xaxis;
-        this.yaxis = yaxis;
     }
 }

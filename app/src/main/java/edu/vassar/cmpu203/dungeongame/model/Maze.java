@@ -32,7 +32,7 @@ public class Maze {
                 only made for the right and down of a given Node as the left and up
                 are already covered by their neighbors and therefore would only create
                 redundant adjacencies. Redundancy bad. Redundancy real bad. */
-                this.mazeArray[i][j] = new Node(xaxis, yaxis, nodeCounter);
+                this.mazeArray[i][j] = new Node(nodeCounter);
                 nodeCounter += 1; //the nodeCounter is the id of a node
                 if (((j + 1) == xaxis) && ((i + 1) == yaxis)) {
                 /*Case A: The node in question is the corner node and
@@ -109,6 +109,8 @@ public class Maze {
             roomCount--;
         }
     }
+
+
     public boolean checkValid(int[] pos, char dir) {
         //This method checks if a move in a given direction will be valid or not
         //"valid" being if there is a wall in the way or not
@@ -140,34 +142,38 @@ public class Maze {
         return validity;
     }
 
-    public String toString(Player p) {
-        String out = "";
-        char lSymbol = 8838;
-        char rSymbol = 8839;
-        String avatar = Character.toString(lSymbol) + Character.toString(rSymbol);
-        int size  = xaxis;
+    /*This toString is just used if we want to be able to see the entire maze at once
+     * and is not part of the final product
+     */
 
-        for (int i = 0; i < size; i++) {
-            out += "+ -- ";
-        }
-        out += "+\n";
-        for (int i = 0; i < size; i++) {
-            out += "|";
-            for (int j = 0; j < size; j++) {
-                out += " ";
-                out += p.getPos()[1] == i && p.getPos()[0] == j ? avatar : "  ";
-                out += this.mazeArray[i][j].rbarrier ? " |" : "  ";
-            }
-            out += "\n";
-            for (int j = 0; j < size; j++) {
-                out += this.mazeArray[i][j].dbarrier ? "+ -- " : "+    ";
-            }
-            out += "+\n";
-        }
-
-        out += " ";
-        return out;
-    }
+//    public String toString(Player p) {
+//        String out = "";
+//        char lSymbol = 8838;
+//        char rSymbol = 8839;
+//        String avatar = Character.toString(lSymbol) + Character.toString(rSymbol);
+//        int size  = xaxis;
+//
+//        for (int i = 0; i < size; i++) {
+//            out += "+ -- ";
+//        }
+//        out += "+\n";
+//        for (int i = 0; i < size; i++) {
+//            out += "|";
+//            for (int j = 0; j < size; j++) {
+//                out += " ";
+//                out += p.getPos()[1] == i && p.getPos()[0] == j ? avatar : "  ";
+//                out += this.mazeArray[i][j].rbarrier ? " |" : "  ";
+//            }
+//            out += "\n";
+//            for (int j = 0; j < size; j++) {
+//                out += this.mazeArray[i][j].dbarrier ? "+ -- " : "+    ";
+//            }
+//            out += "+\n";
+//        }
+//
+//        out += " ";
+//        return out;
+//    }
 
     public String toObscuredString(Player p) {
         String out = "";
