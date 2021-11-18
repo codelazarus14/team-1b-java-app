@@ -14,7 +14,7 @@ import org.junit.Test;
 import edu.vassar.cmpu203.dungeongame.controller.ControllerActivity;
 import edu.vassar.cmpu203.dungeongame.view.MenuFragment;
 
-public class MenuTest {
+public class StartGameTest {
     @org.junit.Rule
     public ActivityScenarioRule<ControllerActivity> activityRule =
             new ActivityScenarioRule<>(ControllerActivity.class);
