@@ -19,11 +19,16 @@ public class StartGameTest {
     public ActivityScenarioRule<ControllerActivity> activityRule =
             new ActivityScenarioRule<>(ControllerActivity.class);
 
+    /**
+     * Tests start menu and switching fragments
+     */
     @Test
     public void testStartButton() {
+        //checks that menu fragment is displayed on launch
         ViewInteraction startText = Espresso.onView(ViewMatchers.withId(R.id.menuTitleText));
         startText.check(ViewAssertions.matches(ViewMatchers.withText(R.string.main_menu_title)));
 
+        // click start
         ViewInteraction startButton = Espresso.onView(ViewMatchers.withId(R.id.startButton));
         startButton.perform(ViewActions.click());
 
