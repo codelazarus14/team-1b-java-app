@@ -368,6 +368,12 @@ public class Maze {
         return out;
     }
 
+    public boolean isEnd(Player p) {
+        int size = xaxis;
+        int[] arr = {size - 1, size - 1};
+        return arr[0] == p.getPos()[0] && arr[1] == p.getPos()[1];
+    }
+
     public static void main(String[] args) {
         //Currently this is just diagnostic stuff. I wanted to be able to see how if the mazeArray and adjacency tables were being correctly spat out.
         int size = 5;
