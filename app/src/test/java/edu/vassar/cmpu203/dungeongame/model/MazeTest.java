@@ -10,9 +10,9 @@ class MazeTest {
     void checkValid() {
         Maze testMaze = new Maze(4);
         Player testPlayer = new Player();
-        assertEquals(false, testMaze.checkValid(testPlayer.getPos(),'u'), "Move Error!");
-        assertEquals(false, testMaze.checkValid(testPlayer.getPos(),'l'), "Move Error!");
-        assertEquals(true, testMaze.checkValid(testPlayer.getPos(),'d') || testMaze.checkValid(testPlayer.getPos(),'r'), "Move Error!");
+        assertFalse(testMaze.checkValid(testPlayer.getPos(),'u'), "CheckValid Error!");
+        assertFalse(testMaze.checkValid(testPlayer.getPos(),'l'), "CheckValid Error!");
+        assertTrue(testMaze.checkValid(testPlayer.getPos(),'d') || testMaze.checkValid(testPlayer.getPos(),'r'), "CheckValid Error!");
     }
 
     @Test

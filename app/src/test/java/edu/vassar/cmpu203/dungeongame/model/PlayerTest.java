@@ -28,9 +28,9 @@ class PlayerTest {
         assertEquals(pos, testPlayer.getPos(), "Update Position Error");
         if (testMaze.checkValid(testPlayer.getPos(), 'r')) pos[0]++;
         testPlayer.updatePos('r',testMaze);
-        assertEquals(Pos, testPlayer.getPos(), "Update Position Error");
+        assertEquals(pos, testPlayer.getPos(), "Update Position Error");
         if (testMaze.checkValid(testPlayer.getPos(), 'r')) pos[0]--;
         testPlayer.updatePos('l',testMaze);
-        assertEquals(Pos, testPlayer.getPos(), "Update Position Error");
+        assertEquals(pos, testPlayer.getPos(), "Update Position Error");
     }
 }
