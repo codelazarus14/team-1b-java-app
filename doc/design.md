@@ -147,6 +147,50 @@ class DisjointSets{
 --
     addPair(Pair n) : boolean
 }
+
+class MainView{
+    activity : FragmentActivity
+    binding : MainBinding
+--
+    getRootView() : View
+    displayFragment(Fragment fragment) : void
+}
+
+class MazeFragment{
+    binding : FragmentMazeBinding
+    mazeText : String
+    listener : Listener
+--
+    onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) : View
+    onViewCreated(View view, Bundle savedInstanceState) : void
+    updateMaze(String mazeText) : void
+}
+
+class MenuFragment{
+    listener : Listener
+    binding : FragmentMenuBinding
+--
+    onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) : View
+    onViewCreated(View view, Bundle savedInstanceState) : void
+}
+
+class GameController{
+--
+    handleMovement(Player p, Maze m, char dir) : void
+}
+
+class ControllerActivity{
+    maze : Maze
+    mainView : IMainView
+    p : Player
+--
+    onCreate(Bundle savedInstanceState) : void
+    onPlayerMoveInput(char dir, IMazeView mazeView) : void
+    onPlayerMoveInput(char dir) : void
+    onKeyDown(int keyCode, KeyEvent event) : boolean
+    onStartGame() : void
+    onEnd() : void
+}
  
 Maze *- "(size^2) \mazeArray \n <ordered, Node[][]>" Node : \t\t\t\t
 DisplayMazeConsole ->  "(1)\nPlayer\n" Player : \t\t
