@@ -41,7 +41,13 @@ public class ControllerActivity extends AppCompatActivity implements IMazeView.L
         int[] playerPos = p.getPos();
         Log.i("DungeonGame", "new player position is " + playerPos[0] + "," + playerPos[1]);
         mazeView.updateMaze(this.maze.toObscuredString(p));
-        if (maze.isEnd(p)) this.onEnd();
+        if (maze.isEnd(p)) this.onEnd(mazeView);
+    }
+
+    @Override
+    public void onResetMaze(IMazeView mazeView) {
+        //currently this just recreates maze fragment, should be called during maze transition
+        this.onStartGame();
     }
 
     //:[
@@ -51,7 +57,10 @@ public class ControllerActivity extends AppCompatActivity implements IMazeView.L
         int[] playerPos = p.getPos();
         Log.i("DungeonGame", "new player position is " + playerPos[0] + "," + playerPos[1]);
         this.mainView.displayFragment(new MazeFragment(this, maze.toObscuredString(p)));
-        if (maze.isEnd(p)) this.onEnd();
+
+        // I commented this out because this method is missing the view parameter
+        // so you can't access it when you need to show the dialog/reset button in the fragment
+        //if (maze.isEnd(p)) this.onEnd();
     }
 
     public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -90,8 +99,9 @@ public class ControllerActivity extends AppCompatActivity implements IMazeView.L
         Fragment f = new MazeFragment(this, maze.toObscuredString(p));
         this.mainView.displayFragment(f);
     }
-    public void onEnd() {
+    public void onEnd(IMazeView mazeView) {
         //TODO - trigger method in MazeFragment to display success, disable controls
         Log.i("DungeonGame", "congratulations");
+        mazeView.setMazeSuccessConfiguration();
     }
 }
