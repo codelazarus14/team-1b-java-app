@@ -2,6 +2,7 @@ package edu.vassar.cmpu203.dungeongame.model;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import org.junit.Test;
 import org.junit.jupiter.api.Test;
 
 class MazeTest {
@@ -25,5 +26,12 @@ class MazeTest {
                 assertEquals('+', testMaze.toObscuredString(testPlayer).charAt((i * 34) + j), "Display Error!");
             }
         }
+    }
+
+    @Test
+    void isEnd() {
+        Maze testMaze = newMaze(4);
+        Player testPlayer = new Player();
+        assertFalse(testMaze.isEnd(testPlayer), "Maze Ending Error");
     }
 }
