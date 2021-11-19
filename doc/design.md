@@ -109,10 +109,6 @@ end
 
 skinparam classAttributeIconSize 0 
 
-class DisplayMazeConsole {
-    {static} public main(String[] args) : void
-}
-
 class Player{
     pos : int[] = {int, int}
 --
@@ -122,10 +118,7 @@ class Player{
 
 class Maze{
     +size : int
-    mazeArray : Node[][]
     mazeTable : ArrayList<Pair>
-    djsTable : DisjointSets
-    adjTable : ArrayList<Pair>
 --
     checkValid(pos) : boolean
     toObscuredString(Player) : String
@@ -133,17 +126,17 @@ class Maze{
 
 class Node{
     rbarrier : boolean
-    dbarrier : booleam
+    dbarrier : boolean
     index : int {range=[0, n^2]}
 }
 
 class Pair{
-    int node1;
-    int node2;   
+    node1 : int
+    node2 : int   
 }
 
 class DisjointSets{
-    ArrayList<ArrayList<Integer>> disjointSets;
+    disjointSets : ArrayList<ArrayList<Integer> {size - 1}
 --
     addPair(Pair n) : boolean
 }
@@ -164,25 +157,35 @@ class MazeFragment{
     onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) : View
     onViewCreated(View view, Bundle savedInstanceState) : void
     updateMaze(String mazeText) : void
+    setMazeSuccessConfiguration() : void
 }
 
 class MenuFragment{
-    listener : Listener
     binding : FragmentMenuBinding
+    listener : Listener
 --
     onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) : View
     onViewCreated(View view, Bundle savedInstanceState) : void
 }
 
-class GameController{
+interface IMainView {
 --
-    handleMovement(Player p, Maze m, char dir) : void
+    getRootView() : View
+    displayFragment(Fragment fragment) : void
+}
+
+interface IMazeView {
+    interface Listener
+--
+    updateMaze(String mazeText) : void
+    setMazeSuccessConfiguration() : void
+}
+
+interface IMenuView {
+    interface Listener
 }
 
 class ControllerActivity{
-    maze : Maze
-    mainView : IMainView
-    p : Player
 --
     onCreate(Bundle savedInstanceState) : void
     onPlayerMoveInput(char dir, IMazeView mazeView) : void
@@ -192,11 +195,18 @@ class ControllerActivity{
     onEnd() : void
 }
  
-Maze *- "(size^2) \mazeArray \n <ordered, Node[][]>" Node : \t\t\t\t
-DisplayMazeConsole ->  "(1)\nPlayer\n" Player : \t\t
-DisplayMazeConsole -> "(1)Maze\n" Maze : \t\t
-DisjointSets --> "(1)djsTable" Maze : \t\t\t
-Pair -> "(2*(size*(size - 1)))\nMaze" Maze : \t\t
-Pair -> "(size - 1)\ndisjointSets" DisjointSets : \t\t\t
+Maze *-left- "(size^2) \nmazeArray \n <ordered, Node[][]>" Node : \t\t\t\t\t
+Maze --> "(1)\ndjsTable" DisjointSets : \t\t\t
+Maze -> "(size^2-1)\nadjTable\n<ArrayList<Pair>>" Pair : \t\t\t\t\t\t
+Maze -> "(size^2-1)\nmazeTable\n<ArrayList<Pair>>" Pair : \t\t\t\t\t\t
+IMainView <|.. MainView
+IMazeView <|.. MazeFragment
+MazeFragment <|.. "IMazeView.Listener" ControllerActivity
+IMenuView <|.. MenuFragment
+MenuFragment <|.. "IMenuView.Listener" ControllerActivity 
+ControllerActivity -left> "(1)\nIMainView" MainView : \t\t
+ControllerActivity -> "(1)\nPlayer" Player : \t\t
+ControllerActivity -down> "(1)\nMaze\n" Maze :\t\t
+
 @enduml
 '''
