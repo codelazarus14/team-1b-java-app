@@ -1,7 +1,8 @@
 package edu.vassar.cmpu203.dungeongame.model;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class DisjointSets{
+public class DisjointSets implements Serializable {
     ArrayList<ArrayList<Integer>> disjointSets;
     public DisjointSets(){
         disjointSets = new ArrayList<>();

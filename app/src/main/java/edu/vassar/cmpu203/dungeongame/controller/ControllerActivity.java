@@ -4,10 +4,11 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentFactory;
 
-import edu.vassar.cmpu203.dungeongame.databinding.FragmentMazeBinding;
 import edu.vassar.cmpu203.dungeongame.model.Maze;
 import edu.vassar.cmpu203.dungeongame.model.Player;
 import edu.vassar.cmpu203.dungeongame.view.IMainView;
@@ -22,16 +23,37 @@ public class ControllerActivity extends AppCompatActivity implements IMazeView.L
     private Maze maze;
     private IMainView mainView;
     private Player p;
+    private static final String IN_GAME = "inGame";
+    private static final String MAZE = "maze";
+    private static final String PLAYER = "player";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        //set custom fragment factory
+        FragmentFactory fragFactory = new DungeonGameFragFactory(this);
+        this.getSupportFragmentManager()
+                .setFragmentFactory(fragFactory);
+
         super.onCreate(savedInstanceState);
+
+        Log.i("DungeonGame", "onCreate activity");
 
         this.mainView = new MainView((this));
 
+        // check if we're already mid-game to get preserved objects
+        if (savedInstanceState == null)
+            onStartGame();
+        else {
+            this.maze = (Maze) savedInstanceState.getSerializable(MAZE);
+            this.p = (Player) savedInstanceState.getSerializable(PLAYER);
+            assert (this.p != null && this.maze != null);
+        }
+
         setContentView(this.mainView.getRootView());
 
-        this.mainView.displayFragment(new MenuFragment(this));
+        if(savedInstanceState == null)
+            this.mainView.displayFragment(new MenuFragment(this));
     }
 
     @Override
@@ -56,7 +78,12 @@ public class ControllerActivity extends AppCompatActivity implements IMazeView.L
         p.updatePos(dir, maze);
         int[] playerPos = p.getPos();
         Log.i("DungeonGame", "new player position is " + playerPos[0] + "," + playerPos[1]);
-        this.mainView.displayFragment(new MazeFragment(this, maze.toObscuredString(p)));
+        // bundle args and instantiate new fragment
+        String mazeText = maze.toObscuredString(p);
+        Bundle fragArgs = MazeFragment.makeArgsBundle(mazeText);
+        Fragment mazeFrag = new MazeFragment(this);
+        mazeFrag.setArguments(fragArgs);
+        this.mainView.displayFragment(mazeFrag);
 
         // I commented this out because this method is missing the view parameter
         // so you can't access it when you need to show the dialog/reset button in the fragment
@@ -91,17 +118,29 @@ public class ControllerActivity extends AppCompatActivity implements IMazeView.L
 
     @Override
     public void onStartGame() {
-        //TODO - bundle arguments and pass to MazeFragment
         Log.i("DungeonGame", "controller onStartGame()");
 
         this.maze = new Maze(8);
         this.p = new Player(0,0);
-        Fragment f = new MazeFragment(this, maze.toObscuredString(p));
-        this.mainView.displayFragment(f);
+
+        //bundle args and instantiate new fragment
+        String mazeText = maze.toObscuredString(p);
+        Bundle fragArgs = MazeFragment.makeArgsBundle(mazeText);
+        Fragment mazeFrag = new MazeFragment(this);
+        mazeFrag.setArguments(fragArgs);
+
+        this.mainView.displayFragment(mazeFrag);
     }
     public void onEnd(IMazeView mazeView) {
-        //TODO - trigger method in MazeFragment to display success, disable controls
+        //TODO - trigger method in mazeFragment as below, but then swap to leaderboard
         Log.i("DungeonGame", "congratulations");
         mazeView.setMazeSuccessConfiguration();
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putSerializable(MAZE, this.maze);
+        outState.putSerializable(PLAYER, this.p);
     }
 }

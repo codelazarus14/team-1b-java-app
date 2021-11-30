@@ -1,6 +1,8 @@
 package edu.vassar.cmpu203.dungeongame.model;
 
-public class Pair {
+import java.io.Serializable;
+
+public class Pair implements Serializable {
     int node1;
     int node2;
     /*This is a homemade Pair class for use in making the adjacency table

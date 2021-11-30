@@ -1,4 +1,5 @@
 package edu.vassar.cmpu203.dungeongame.model;
+import java.io.Serializable;
 import java.lang.Math;
 import java.util.ArrayList;
 
@@ -6,7 +7,7 @@ import java.util.ArrayList;
  * X and Y coordinates of the Maze. I can remove that if we want but otherwise just consider
  * the thing to be futureproofed */
 
-public class Maze {
+public class Maze implements Serializable {
     /* The Maze class is long and has a lot of sub bits but the end will ignore 99% of it. It is mostly for creating traversable mazes
     At the end it will output a 2D array which contains the Nodes, which contain the Wall data. This is what the game will look at. */
     int yaxis;
