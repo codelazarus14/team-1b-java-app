@@ -5,6 +5,7 @@ public class Node {
     //1 = there is a wall, 0 = no wall
     boolean rbarrier = true;
     boolean dbarrier = true;
+    Interactable nodeContents = new Nothing();
     /*There is no leftwall or upwall because if you think about it, the neighbor above it's dbarrier
      * will be this node's upwall. The same idea applies for leftwalls.
      */

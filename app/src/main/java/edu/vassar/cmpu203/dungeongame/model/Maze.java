@@ -37,24 +37,26 @@ public class Maze {
                 if (((j + 1) == xaxis) && ((i + 1) == yaxis)) {
                 /*Case A: The node in question is the corner node and
                 therefore has no adjacencies to its down or right.
-                There is nothing inside the body because I want it to skip here*/ }
-                else if ((j + 1) == xaxis) {
+                There is nothing inside the body because I want it to skip here*/
+                } else if ((j + 1) == xaxis) {
                     /* Case B: The Node is at the far right of the maze and so
                     all of its right adjacencies would only take it off of the map */
-                    mazeTable.add(downPair);}
-                else if ((i + 1) == yaxis) {
+                    mazeTable.add(downPair);
+                } else if ((i + 1) == yaxis) {
                     /* Case C: The same as B, but with the bottom edge of the maze */
-                    mazeTable.add(rightPair); }
-                else {
+                    mazeTable.add(rightPair);
+                } else {
                     /* Case D: This is the default case, where the Node in question
                     is at neither edge of the maze */
                     mazeTable.add(rightPair);
-                    mazeTable.add(downPair); } }
+                    mazeTable.add(downPair);
+                }
+            }
         }
         /* This method creates the actual maze. At total random, pairs will be picked from the mazeTable created in the Maze class
          *  until all the viable disjoints have been consumed and the rest are all discarded. The viable ones are all stored in the adjacency table
          * Then the method goes through the adjacency table and breaks down the barriers between the paired mazeArray in the table */
-        int totalSize = (xaxis*(yaxis -1)) + (yaxis * (xaxis - 1)); //Mathematically, this is the amount of Pairs as should have been generated in mazeTable
+        int totalSize = (xaxis * (yaxis - 1)) + (yaxis * (xaxis - 1)); //Mathematically, this is the amount of Pairs as should have been generated in mazeTable
         djsTable = new DisjointSets(); //this creates the path of the maze and determines if a given pair is a valid addition
         adjTable = new ArrayList<>(); //if a pair is a valid addition, it will be added to this, which is the final maze path
         while (totalSize > 0) {
@@ -70,45 +72,97 @@ public class Maze {
                 int nodeXPos = (randomPair.node1 - nodeYPos) / xaxis; //this gets the x coordinate in the mazeArray[x][y]
                 //Case 1: The neighbor is to the right
                 if (randomPair.node2 == (randomPair.node1 + 1)) {
-                    mazeArray[nodeXPos][nodeYPos].rbarrier = false; }
+                    mazeArray[nodeXPos][nodeYPos].rbarrier = false;
+                }
                 //Case 2: The neighbor is to the left
                 else if (randomPair.node2 == (randomPair.node1 - 1)) {
-                    mazeArray[nodeXPos][nodeYPos - 1].rbarrier = false; }
+                    mazeArray[nodeXPos][nodeYPos - 1].rbarrier = false;
+                }
                 //Case 3: The neighbor is below
                 else if (randomPair.node2 == (randomPair.node1 + xaxis)) {
-                    mazeArray[nodeXPos][nodeYPos].dbarrier = false; }
+                    mazeArray[nodeXPos][nodeYPos].dbarrier = false;
+                }
                 //Case 4: The neighbor is above
                 else if (randomPair.node2 == (randomPair.node1 - xaxis)) {
-                    mazeArray[nodeXPos - 1][nodeYPos].dbarrier = false; }
+                    mazeArray[nodeXPos - 1][nodeYPos].dbarrier = false;
+                }
             }
         }
-        /* Preliminary Room Generator-
-        For this implementation, a room is not a special object or anyways different from just hallway
-        This essentially creates square/rectangular spaces inside of which the walls are all broken
-        Though it does not break or create any new walls along the edge of the room.
-        This is a very basic way of getting around the Kruskal method's thing of not creating loops */
+
+        /* Room Generator-
+         For this implementation, a room is not a special object or anyways different from just hallway
+         This essentially creates square/rectangular spaces inside of which the walls are all broken
+         Though it does not break or create any new walls along the edge of the room.
+         This is a very basic way of getting around the Kruskal method's thing of not creating loops
+         */
         int roomCount = xaxis / 4;
         while (roomCount >= 0) {
-            int roomHeight= (int) (Math.random() * 4); //this is the vertical size of a given room
+            int roomHeight = (int) (Math.random() * 4); //this is the vertical size of a given room
             int roomWidth = (int) (Math.random() * 4); //this is the horizontal size of a given room
             /*these are the Y and X positions of the top corner of the room in the maze
             with accounting to make sure that a room never goes off the "edge" of a maze */
-            int roomYPos = (int)(Math.random() * (xaxis - roomHeight));
-            int roomXPos = (int)(Math.random() * (yaxis - roomWidth));
-            for (int y = roomYPos; y < roomHeight + roomYPos; y++){
-                for (int x = roomXPos; x < roomWidth + roomXPos; x++){
+            int roomYPos = (int) (Math.random() * (xaxis - roomHeight));
+            int roomXPos = (int) (Math.random() * (yaxis - roomWidth));
+            for (int y = roomYPos; y < roomHeight + roomYPos; y++) {
+                for (int x = roomXPos; x < roomWidth + roomXPos; x++) {
                     if (y == roomHeight && x == roomWidth) {
-                        break; }
-                    else if (y == roomHeight) {
-                        mazeArray[x][y].dbarrier = false; }
-                    else if (x == roomWidth) {
-                        mazeArray[x][y].rbarrier = false; }
-                    else{
+                        break;
+                    } else if (y == roomHeight) {
                         mazeArray[x][y].dbarrier = false;
-                        mazeArray[x][y].rbarrier = false; } } }
+                    } else if (x == roomWidth) {
+                        mazeArray[x][y].rbarrier = false;
+                    } else {
+                        mazeArray[x][y].dbarrier = false;
+                        mazeArray[x][y].rbarrier = false;
+                    }
+                }
+            }
             roomCount--;
         }
-    }
+
+        /*
+         * This is the prototype version of the code to create chest or note placements
+         */
+        int interactableQuantity = size / 7; //This is how many chests there will be
+        if (interactableQuantity == 0) { //If the previous gives a no, there will always be at least 1 chest
+            interactableQuantity = 1;
+        }
+        while (interactableQuantity > 0) {
+            int randomPlacement = (int) (Math.random() * (size * size - 1)); //This should pick a random node in the maze
+            int xCoord = randomPlacement % size;
+            int yCoord = (randomPlacement - xCoord) / size;
+            int wallCount = 0;
+            /*
+             * to explain the following code: The chest placement is made as to prefer nodes which have
+             * 3 walls. Nooks or ends of Hallways, essentially. Hopefully this means there will be SOMETHING
+             * at the end of that hallway. On nodes with 2 walls, the chance that it will put a chest there
+             * is 1/3.
+             */
+            if (mazeArray[xCoord][yCoord].rbarrier) {
+                wallCount += 1; }
+            if (mazeArray[xCoord][yCoord].dbarrier) {
+                wallCount += 1; }
+            if (mazeArray[xCoord][yCoord - 1].rbarrier) {
+                wallCount += 1; }
+            if (mazeArray[xCoord + 1][yCoord].rbarrier) {
+                wallCount += 1; }
+            int randomChance = (int) (Math.random() * 2);
+            int chestOrNote = (int) (Math.random());
+            Interactable interactable;
+            if (chestOrNote == 0) { interactable = new Chest();}
+            else { interactable = new Note(); }
+            switch (wallCount) {
+                case 0: break;
+                case 1: break;
+                case 2: if (randomChance > 1) {mazeArray[xCoord][yCoord].nodeContents = interactable;}
+                        interactableQuantity -= 1;
+                        break;
+               case 3: mazeArray[xCoord][yCoord].nodeContents = interactable;
+                   interactableQuantity -= 1;
+                   break;
+            }
+            }
+        }
 
 
     public boolean checkValid(int[] pos, char dir) {
