@@ -9,7 +9,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentFactory;
 
+import edu.vassar.cmpu203.dungeongame.model.Interactable;
 import edu.vassar.cmpu203.dungeongame.model.Maze;
+import edu.vassar.cmpu203.dungeongame.model.Node;
 import edu.vassar.cmpu203.dungeongame.model.Player;
 import edu.vassar.cmpu203.dungeongame.model.Chest;
 import edu.vassar.cmpu203.dungeongame.view.IMainView;
@@ -73,8 +75,12 @@ public class ControllerActivity extends AppCompatActivity implements IMazeView.L
 
     @Override
     public void onPlayerInteract(IMazeView mazeView) {
+        Node n = this.maze.mazeArray[p.getPos()[1]][p.getPos()[0]];
+        Interactable interactable = n.nodeContents;
+        if (interactable.id == "Nothing") return;
         Log.i("DungeonGame", "controller received player interaction, handling: ");
         p.openObject(maze);
+        mazeView.onInteraction(interactable);
     }
 
 

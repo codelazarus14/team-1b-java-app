@@ -13,7 +13,7 @@ public class Maze implements Serializable {
     At the end it will output a 2D array which contains the Nodes, which contain the Wall data. This is what the game will look at. */
     int yaxis;
     int xaxis;
-    Node[][] mazeArray; //This will store every node in the maze
+    public Node[][] mazeArray; //This will store every node in the maze
     ArrayList<Pair> mazeTable; //This stores every single possible pair of mazeArray
     DisjointSets djsTable; //This will be used to connect the mazeArray into a single chain
     ArrayList<Pair> adjTable; //This will record the final set of pairs which is used in djsTable's chain
