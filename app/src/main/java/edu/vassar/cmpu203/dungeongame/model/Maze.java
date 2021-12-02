@@ -147,7 +147,7 @@ public class Maze implements Serializable {
             int chestNoteMimic = (int) (Math.random() * 10);
             Interactable interactable;
             switch (chestNoteMimic) {
-                case 10 : interactable = new Mimic();
+                case 0 : interactable = new Mimic();
                     break;
                 case 9 :
                 case 8 :
@@ -234,6 +234,7 @@ public class Maze implements Serializable {
                 String str = "  ";
                 if (i > -1 && j > -1 && i < size && j < size && mazeArray[i][j].nodeContents.id == "Note") str = "NN";
                 if (i > -1 && j > -1 && i < size && j < size && mazeArray[i][j].nodeContents.id == "Chest") str = "CC";
+                if (i > -1 && j > -1 && i < size && j < size && mazeArray[i][j].nodeContents.id == "Mimic") str = "MM";
                 str = j == size - 1 && i == size - 1 ? "EE" : str;
                 out += this.mazeArray[i][j].rbarrier ? " " + str + " |" : " "+ str + "  ";
             }
@@ -370,6 +371,8 @@ public class Maze implements Serializable {
                 String str = " ";
                 if (i > -1 && j > -1 && i < size && j < size && mazeArray[i][j].nodeContents.id == "Note") str = "N";
                 if (i > -1 && j > -1 && i < size && j < size && mazeArray[i][j].nodeContents.id == "Chest") str = "C";
+                if (i > -1 && j > -1 && i < size && j < size && mazeArray[i][j].nodeContents.id == "Mimic") str = "C";
+
                 str = j == size - 1 && i == size - 1 ? "E" : str;
                 if (!visibleNode[arrI][arrJ]) {
                     String ob = "#";
@@ -415,6 +418,7 @@ public class Maze implements Serializable {
                 String str = " ";
                 if (i > -1 && j > -1 && i < size && j < size && mazeArray[i][j].nodeContents.id == "Note") str = "N";
                 if (i > -1 && j > -1 && i < size && j < size && mazeArray[i][j].nodeContents.id == "Chest") str = "C";
+                if (i > -1 && j > -1 && i < size && j < size && mazeArray[i][j].nodeContents.id == "Mimic") str = "C";
                 str = j == size - 1 && i == size - 1 ? "E" : str;
                 if (!visibleNode[arrI][arrJ]) {
                     String ob = "#";
