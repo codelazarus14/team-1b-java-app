@@ -23,7 +23,6 @@ public class ControllerActivity extends AppCompatActivity implements IMazeView.L
     private Maze maze;
     private IMainView mainView;
     private Player p;
-    private static final String IN_GAME = "inGame";
     private static final String MAZE = "maze";
     private static final String PLAYER = "player";
 
@@ -42,17 +41,20 @@ public class ControllerActivity extends AppCompatActivity implements IMazeView.L
         this.mainView = new MainView((this));
 
         // check if we're already mid-game to get preserved objects
-        if (savedInstanceState == null)
-            onStartGame();
-        else {
+        if (savedInstanceState == null) {
+            this.maze = new Maze(8);
+            this.p = new Player(0, 0);
+        } else {
             this.maze = (Maze) savedInstanceState.getSerializable(MAZE);
             this.p = (Player) savedInstanceState.getSerializable(PLAYER);
-            assert (this.p != null && this.maze != null);
+            Log.d("DungeonGame", "Player: " + p);
+            assert(this.p != null);
+            assert(this.maze != null);
         }
 
         setContentView(this.mainView.getRootView());
 
-        if(savedInstanceState == null)
+        if (savedInstanceState == null)
             this.mainView.displayFragment(new MenuFragment(this));
     }
 
@@ -69,6 +71,12 @@ public class ControllerActivity extends AppCompatActivity implements IMazeView.L
     @Override
     public void onResetMaze(IMazeView mazeView) {
         //currently this just recreates maze fragment, should be called during maze transition
+        //TODO
+
+        //this is here because the maze/player won't reset otherwise
+        this.maze = new Maze(8);
+        this.p = new Player(0, 0);
+
         this.onStartGame();
     }
 
@@ -119,9 +127,6 @@ public class ControllerActivity extends AppCompatActivity implements IMazeView.L
     @Override
     public void onStartGame() {
         Log.i("DungeonGame", "controller onStartGame()");
-
-        this.maze = new Maze(8);
-        this.p = new Player(0,0);
 
         //bundle args and instantiate new fragment
         String mazeText = maze.toObscuredString(p);

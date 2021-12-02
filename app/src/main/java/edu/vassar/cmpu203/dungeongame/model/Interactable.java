@@ -1,4 +1,5 @@
 package edu.vassar.cmpu203.dungeongame.model;
+import java.io.Serializable;
 import java.lang.Math;
 
 /*
@@ -6,7 +7,7 @@ import java.lang.Math;
  * Those being chests, notes, and "nothing"
  */
 
-public class Interactable {
+public class Interactable implements Serializable {
     String id; //This is what I am using as the indicator for what kind of Interactable subclass it is
 
     public Interactable() {
