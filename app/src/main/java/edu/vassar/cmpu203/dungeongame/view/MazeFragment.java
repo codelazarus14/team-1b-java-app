@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 
 import edu.vassar.cmpu203.dungeongame.R;
 import edu.vassar.cmpu203.dungeongame.databinding.FragmentMazeBinding;
+import edu.vassar.cmpu203.dungeongame.model.Interactable;
 
 public class MazeFragment extends Fragment implements IMazeView {
 
@@ -90,6 +91,15 @@ public class MazeFragment extends Fragment implements IMazeView {
         //show reset button
         this.binding.resetButton.setVisibility(View.VISIBLE);
         this.isComplete = true;
+    }
+
+    @Override
+    public void onInteraction(Interactable interactable) {
+        AlertDialog.Builder builder =  new AlertDialog.Builder(getActivity(), R.style.AlertDialogStyle);
+        builder.setMessage(interactable.bodyText)
+                .setTitle(interactable.titleText);
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
     @Override

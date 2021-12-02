@@ -1,5 +1,7 @@
 package edu.vassar.cmpu203.dungeongame.view;
 
+import edu.vassar.cmpu203.dungeongame.model.Interactable;
+
 public interface IMazeView {
     interface Listener {
         void onPlayerMoveInput(char dir, IMazeView mazeView);
@@ -10,4 +12,6 @@ public interface IMazeView {
     void updateMaze(String mazeText);
 
     void setMazeSuccessConfiguration();
+
+    void onInteraction(Interactable interactable);
 }
