@@ -10,10 +10,10 @@ public class Chest extends Interactable{
 
     public Chest() {
         super.id = "Chest";
-        itemQuantity = (int) (Math.random() * 4);
-        while (itemQuantity == 0) { //this is just a bit of code to make sure there isn't an empty chest as funny as that would be
-            itemQuantity = (int) (Math.random() * 4);
-        }
+        itemQuantity = (int) (Math.random() * 4) + 1;
+//        while (itemQuantity == 0) { //this is just a bit of code to make sure there isn't an empty chest as funny as that would be
+//            itemQuantity = (int) (Math.random() * 4);
+//        }
 
         int itemType = (int) (Math.random() * 4);
         switch (itemType) {

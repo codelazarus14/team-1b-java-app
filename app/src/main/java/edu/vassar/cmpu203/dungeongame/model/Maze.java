@@ -1,6 +1,7 @@
 package edu.vassar.cmpu203.dungeongame.model;
 import java.lang.Math;
 import java.util.ArrayList;
+import android.util.Log;
 
 /*When I made this my brain was on something and I thought that we could be putting in the
  * X and Y coordinates of the Maze. I can remove that if we want but otherwise just consider
@@ -123,7 +124,7 @@ public class Maze {
         /*
          * This is the prototype version of the code to create chest or note placements
          */
-        int interactableQuantity = size / 7; //This is how many chests there will be
+        int interactableQuantity = size * size / 12; //This is how many chests there will be
         if (interactableQuantity == 0) { //If the previous gives a no, there will always be at least 1 chest
             interactableQuantity = 1;
         }
@@ -138,31 +139,40 @@ public class Maze {
              * at the end of that hallway. On nodes with 2 walls, the chance that it will put a chest there
              * is 1/3.
              */
-            if (mazeArray[xCoord][yCoord].rbarrier) {
-                wallCount += 1; }
-            if (mazeArray[xCoord][yCoord].dbarrier) {
-                wallCount += 1; }
-            if (mazeArray[xCoord][yCoord - 1].rbarrier) {
-                wallCount += 1; }
-            if (mazeArray[xCoord + 1][yCoord].rbarrier) {
-                wallCount += 1; }
-            int randomChance = (int) (Math.random() * 2);
-            int chestOrNote = (int) (Math.random());
+            for (char dir: new char[] {'u', 'r','d','l'}) {
+                wallCount += checkValid(new int[] {xCoord, yCoord},dir) ? 0 : 1;
+            }
+            int randomChance = (int) (Math.random() * 3);
+            int chestOrNote = (int) (Math.random() * 2);
             Interactable interactable;
             if (chestOrNote == 0) { interactable = new Chest();}
             else { interactable = new Note(); }
             switch (wallCount) {
                 case 0: break;
                 case 1: break;
-                case 2: if (randomChance > 1) {mazeArray[xCoord][yCoord].nodeContents = interactable;}
-                        interactableQuantity -= 1;
+                case 2: if (randomChance > 1) {
+                    mazeArray[yCoord][xCoord].nodeContents = interactable;
+                    interactableQuantity -= 1;
+                }
                         break;
-               case 3: mazeArray[xCoord][yCoord].nodeContents = interactable;
+               case 3: mazeArray[yCoord][xCoord].nodeContents = interactable;
                    interactableQuantity -= 1;
                    break;
-            }
+                default:
+                    break;
             }
         }
+
+
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                if (mazeArray[i][j].nodeContents.id != "Nothing") {
+                    Log.i("DungeonGame",j + "," + i + ": " + mazeArray[i][j].nodeContents.id);
+                }
+            }
+        }
+        Log.i("Dungeon Game", (size - 1) + "," + (size - 1) + ": End of Maze");
+    }
 
 
     public boolean checkValid(int[] pos, char dir) {
@@ -348,7 +358,10 @@ public class Maze {
             }
             for (int j = jPos - 1; j < jPos + 2; j++) {
                 int arrJ = j + 1 - jPos;
-                String str = j == size - 1 && i == size - 1 ? "E" : " ";
+                String str = " ";
+                if (i > -1 && j > -1 && i < size && j < size && mazeArray[i][j].nodeContents.id == "Note") str = "N";
+                if (i > -1 && j > -1 && i < size && j < size && mazeArray[i][j].nodeContents.id == "Chest") str = "C";
+                str = j == size - 1 && i == size - 1 ? "E" : str;
                 if (!visibleNode[arrI][arrJ]) {
                     String ob = "#";
                     if (arrJ < 2 && visibleNode[arrI][arrJ + 1]) ob = (j < 0 || i < 0 || i > size - 1 || j > size -1) || this.mazeArray[i][j].rbarrier ? "|" : " ";
@@ -390,7 +403,10 @@ public class Maze {
             }
             for (int j = jPos - 1; j < jPos + 2; j++) {
                 int arrJ = j + 1 - jPos;
-                String str = j == size - 1 && i == size - 1 ? "E" : " ";
+                String str = " ";
+                if (i > -1 && j > -1 && i < size && j < size && mazeArray[i][j].nodeContents.id == "Note") str = "N";
+                if (i > -1 && j > -1 && i < size && j < size && mazeArray[i][j].nodeContents.id == "Chest") str = "C";
+                str = j == size - 1 && i == size - 1 ? "E" : str;
                 if (!visibleNode[arrI][arrJ]) {
                     String ob = "#";
                     if (arrJ < 2 && visibleNode[arrI][arrJ + 1]) ob = (j < 0 || i < 0 || i > size - 1 || j > size -1) || this.mazeArray[i][j].rbarrier ? "|" : " " ;
