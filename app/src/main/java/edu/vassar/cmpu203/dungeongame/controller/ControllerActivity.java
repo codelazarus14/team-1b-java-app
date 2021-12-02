@@ -11,6 +11,7 @@ import androidx.fragment.app.FragmentFactory;
 
 import edu.vassar.cmpu203.dungeongame.model.Maze;
 import edu.vassar.cmpu203.dungeongame.model.Player;
+import edu.vassar.cmpu203.dungeongame.model.Chest;
 import edu.vassar.cmpu203.dungeongame.view.IMainView;
 import edu.vassar.cmpu203.dungeongame.view.IMazeView;
 import edu.vassar.cmpu203.dungeongame.view.IMenuView;
@@ -23,6 +24,7 @@ public class ControllerActivity extends AppCompatActivity implements IMazeView.L
     private Maze maze;
     private IMainView mainView;
     private Player p;
+    private Chest c = new Chest();
     private static final String MAZE = "maze";
     private static final String PLAYER = "player";
 
@@ -67,6 +69,14 @@ public class ControllerActivity extends AppCompatActivity implements IMazeView.L
         mazeView.updateMaze(this.maze.toObscuredString(p));
         if (maze.isEnd(p)) this.onEnd(mazeView);
     }
+
+
+    @Override
+    public void onPlayerInteract(IMazeView mazeView) {
+        Log.i("DungeonGame", "controller received player interaction, handling: ");
+        p.openObject(maze);
+    }
+
 
     @Override
     public void onResetMaze(IMazeView mazeView) {
