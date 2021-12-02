@@ -5,6 +5,15 @@ import java.io.Serializable;
 public class Player implements Serializable {
     //position array, has x and y values for position
     int[] pos = new int[2];
+    Chest chestRef = new Chest();
+
+    /**
+     * The Chest stores the possible different kinds of loot in an array and the positions of those
+     * things in that array will directly correspond to the position in the inventory array
+     * which will store the quantity of said items in the corresponding position
+     */
+    int[] inventory = new int[chestRef.loot.length];
+    int notes = 0; //stores the amount of notes found by the player
 
     //default constructor
     public Player() {}
@@ -13,6 +22,24 @@ public class Player implements Serializable {
     public Player(int a, int b) {
         this.pos[0] = a;
         this.pos[1] = b;
+        for (int i = 0; i < inventory.length; i++) {
+            inventory[i] = 0;
+        }
+    }
+
+    public void openObject(Maze m){
+        if (m.mazeArray[pos[1]][pos[0]].nodeContents.accessed == false) {
+            if (m.mazeArray[pos[1]][pos[0]].nodeContents instanceof Chest) {
+                inventory[((Chest) m.mazeArray[pos[1]][pos[0]].nodeContents).itemType] +=
+                        ((Chest) m.mazeArray[pos[1]][pos[0]].nodeContents).itemQuantity;
+                ((Chest) m.mazeArray[pos[1]][pos[0]].nodeContents).itemQuantity = 0;
+                m.mazeArray[pos[1]][pos[0]].nodeContents.accessed = true;
+            }
+            if (m.mazeArray[pos[1]][pos[0]].nodeContents instanceof Note) {
+                notes += 1;
+                m.mazeArray[pos[1]][pos[0]].nodeContents.accessed = true;
+            }
+        }
     }
 
     //accessor method
