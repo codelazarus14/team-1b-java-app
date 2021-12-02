@@ -39,6 +39,14 @@ public class Player implements Serializable {
                 notes += 1;
                 m.mazeArray[pos[1]][pos[0]].nodeContents.accessed = true;
             }
+            if (m.mazeArray[pos[1]][pos[0]].nodeContents instanceof Mimic) {
+                int randomItem = (int) (Math.random() * inventory.length);
+                while (inventory[randomItem] < 2){
+                    randomItem = (int) (Math.random() * inventory.length);
+                }
+                int randomQuantity = (int) (Math.random() * inventory[randomItem]);
+                inventory[randomItem] -= randomQuantity;
+            }
         }
     }
 
