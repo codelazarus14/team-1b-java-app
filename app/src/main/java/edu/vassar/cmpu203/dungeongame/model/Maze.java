@@ -172,7 +172,7 @@ public class Maze implements Serializable {
                 }
             }
         }
-        Log.i("Dungeon Game", (size - 1) + "," + (size - 1) + ": End of Maze");
+        Log.i("DungeonGame", "Maze:\n" + this);
     }
 
 
@@ -211,34 +211,36 @@ public class Maze implements Serializable {
      * and is not part of the final product
      */
 
-//    public String toString(Player p) {
-//        String out = "";
-//        char lSymbol = 8838;
-//        char rSymbol = 8839;
-//        String avatar = Character.toString(lSymbol) + Character.toString(rSymbol);
-//        int size  = xaxis;
-//
-//        for (int i = 0; i < size; i++) {
-//            out += "+ -- ";
-//        }
-//        out += "+\n";
-//        for (int i = 0; i < size; i++) {
-//            out += "|";
-//            for (int j = 0; j < size; j++) {
-//                out += " ";
-//                out += p.getPos()[1] == i && p.getPos()[0] == j ? avatar : "  ";
-//                out += this.mazeArray[i][j].rbarrier ? " |" : "  ";
-//            }
-//            out += "\n";
-//            for (int j = 0; j < size; j++) {
-//                out += this.mazeArray[i][j].dbarrier ? "+ -- " : "+    ";
-//            }
-//            out += "+\n";
-//        }
-//
-//        out += " ";
-//        return out;
-//    }
+    public String toString() {
+        String out = "";
+        char lSymbol = 8838;
+        char rSymbol = 8839;
+        String avatar = Character.toString(lSymbol) + Character.toString(rSymbol);
+        int size  = xaxis;
+
+        for (int i = 0; i < size; i++) {
+            out += "+ -- ";
+        }
+        out += "+\n";
+        for (int i = 0; i < size; i++) {
+            out += "|";
+            for (int j = 0; j < size; j++) {
+                String str = "  ";
+                if (i > -1 && j > -1 && i < size && j < size && mazeArray[i][j].nodeContents.id == "Note") str = "NN";
+                if (i > -1 && j > -1 && i < size && j < size && mazeArray[i][j].nodeContents.id == "Chest") str = "CC";
+                str = j == size - 1 && i == size - 1 ? "EE" : str;
+                out += this.mazeArray[i][j].rbarrier ? " " + str + " |" : " "+ str + "  ";
+            }
+            out += "\n";
+            for (int j = 0; j < size; j++) {
+                out += this.mazeArray[i][j].dbarrier ? "+ -- " : "+    ";
+            }
+            out += "+\n";
+        }
+
+        out += " ";
+        return out;
+    }
 
     public String toObscuredString(Player p) {
         String out = "";
