@@ -163,15 +163,6 @@ public class Maze implements Serializable {
                     break;
             }
         }
-
-
-        for (int i = 0; i < size; i++) {
-            for (int j = 0; j < size; j++) {
-                if (mazeArray[i][j].nodeContents.id != "Nothing") {
-                    Log.i("DungeonGame",j + "," + i + ": " + mazeArray[i][j].nodeContents.id);
-                }
-            }
-        }
         Log.i("DungeonGame", "Maze:\n" + this);
     }
 
