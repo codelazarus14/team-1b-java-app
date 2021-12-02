@@ -18,12 +18,27 @@ public class MazeFragment extends Fragment implements IMazeView {
 
     private FragmentMazeBinding binding;
     private String mazeText;
+    private static final String MAZE_TEXT = "mazeText";
+    private boolean isComplete = false;
+    private static final String LEVEL_COMPLETE = "levelComplete";
     private Listener listener;
 
-    public MazeFragment(Listener listener, String mazeText) {
-        // Required empty public constructor
-        this.mazeText = mazeText;
+    public MazeFragment(Listener listener) {
         this.listener = listener;
+    }
+
+    public static Bundle makeArgsBundle(String mazeText) {
+        Bundle args = new Bundle();
+        args.putString(MAZE_TEXT, mazeText);
+        return args;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        Bundle args = this.getArguments();
+        if (args != null) this.mazeText = args.getString(MAZE_TEXT);
     }
 
     @Override
@@ -53,6 +68,7 @@ public class MazeFragment extends Fragment implements IMazeView {
     @Override
     public void updateMaze(String mazeText) {
         Log.i("DungeonGame", "updating maze view");
+        Log.d("DungeonGame","isComplete? " + isComplete);
         this.binding.mazeView.setText(mazeText);
     }
 
@@ -73,5 +89,22 @@ public class MazeFragment extends Fragment implements IMazeView {
         dialog.show();
         //show reset button
         this.binding.resetButton.setVisibility(View.VISIBLE);
+        this.isComplete = true;
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putBoolean(LEVEL_COMPLETE, this.isComplete);
+    }
+
+    @Override
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
+
+        if (savedInstanceState != null) this.isComplete = savedInstanceState.getBoolean(LEVEL_COMPLETE);
+        Log.i("DungeonGame","savedInstanceState = " + savedInstanceState);
+
+        if (this.isComplete) this.setMazeSuccessConfiguration();
     }
 }

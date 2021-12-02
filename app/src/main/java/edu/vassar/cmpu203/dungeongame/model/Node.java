@@ -1,6 +1,8 @@
 package edu.vassar.cmpu203.dungeongame.model;
 
-public class Node {
+import java.io.Serializable;
+
+public class Node implements Serializable {
     //This class is for the mazeArray of our maze.
     //1 = there is a wall, 0 = no wall
     boolean rbarrier = true;

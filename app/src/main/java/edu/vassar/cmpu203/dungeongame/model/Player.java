@@ -1,6 +1,8 @@
 package edu.vassar.cmpu203.dungeongame.model;
 
-public class Player {
+import java.io.Serializable;
+
+public class Player implements Serializable {
     //position array, has x and y values for position
     int[] pos = new int[2];
 
