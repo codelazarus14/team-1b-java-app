@@ -144,10 +144,25 @@ public class Maze implements Serializable {
                 wallCount += checkValid(new int[] {xCoord, yCoord},dir) ? 0 : 1;
             }
             int randomChance = (int) (Math.random() * 3);
-            int chestOrNote = (int) (Math.random() * 2);
+            int chestNoteMimic = (int) (Math.random() * 10);
             Interactable interactable;
-            if (chestOrNote == 0) { interactable = new Chest();}
-            else { interactable = new Note(); }
+            switch (chestNoteMimic) {
+                case 10 : interactable = new Mimic();
+                    break;
+                case 9 :
+                case 8 :
+                case 7 :
+                case 6 :
+                case 5 :
+                case 4 : interactable = new Chest();
+                    break;
+                case 3 :
+                case 2 :
+                case 1 : interactable = new Note();
+                    break;
+                default : interactable = new Chest();
+                    break;
+            }
             switch (wallCount) {
                 case 0: break;
                 case 1: break;
