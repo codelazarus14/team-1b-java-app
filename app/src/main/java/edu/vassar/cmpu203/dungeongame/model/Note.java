@@ -10,6 +10,7 @@ public class Note extends Interactable {
 
     public Note() {
         super.id = "Note";
+        super.accessed = false;
 
         int randomContents = (int) (Math.random() * 6);
         switch (randomContents) {
@@ -40,5 +41,7 @@ public class Note extends Interactable {
                 break;
         }
     }
+
+
 
 }

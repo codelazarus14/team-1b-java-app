@@ -5,28 +5,23 @@ package edu.vassar.cmpu203.dungeongame.model;
  * A chest with random items.
  */
 public class Chest extends Interactable{
-    int itemQuantity; //there is a chance that there is more than one item!
+    int itemQuantity;
+    int itemType;
     String itemName;
+    String[] loot = {"Bust of Matthew Vassar",
+            "Half-Eaten Mozz Stick",
+            "Unused International Studies Degree",
+            "Rowing Recruitment Flyer"};
 
     public Chest() {
+        super.accessed = false;
         super.id = "Chest";
         itemQuantity = (int) (Math.random() * 4) + 1;
 //        while (itemQuantity == 0) { //this is just a bit of code to make sure there isn't an empty chest as funny as that would be
 //            itemQuantity = (int) (Math.random() * 4);
 //        }
 
-        int itemType = (int) (Math.random() * 4);
-        switch (itemType) {
-            case 0 : itemName = "Bust of Matthew Vassar";
-                break;
-            case 1 : itemName = "Half-Eaten Mozz Stick";
-                break;
-            case 2 : itemName = "Unused International Studies Degree";
-                break;
-            case 3 : itemName = "Rowing Recruitment Flyer";
-                break;
-        }
-
+        itemType = (int) (Math.random() * 4);
+        itemName = loot[itemType];
     }
-
 }
