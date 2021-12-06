@@ -47,6 +47,17 @@ public class Chest extends Interactable{
         this.bodyText += " " + itemName;
         if (itemQuantity != 1) this.bodyText += "s";
         this.bodyText += ".\n\n";
-        this.bodyText += "There might be " + (int) (Math.random() * 10) + " chests left.";
-    }
+        int remainingChests = (int) (Math.random() * 10);
+        switch (remainingChests) {
+            case 0:
+                this.bodyText += "There probably aren't any chests left.";
+                break;
+            case 1:
+                this.bodyText += "There might be 1 chest left.";
+                break;
+            default:
+                this.bodyText += "There might be " + (int) (Math.random() * 10) + " chests left.";
+                break;
+        }
+        }
 }

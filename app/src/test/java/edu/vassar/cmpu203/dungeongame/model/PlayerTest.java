@@ -20,16 +20,16 @@ class PlayerTest {
         Maze testMaze = new Maze(4);
         Player testPlayer = new Player();
         int[] pos = {0, 0};
-        if (testMaze.checkValid(testPlayer.getPos(), 'd')) pos[1]++;
+        if (testMaze.checkValid(testPlayer.getPos(), 'd')) pos[0]++;
         testPlayer.updatePos('d',testMaze);
         assertEquals(pos, testPlayer.getPos(), "Update Position Error");
-        if (testMaze.checkValid(testPlayer.getPos(), 'u')) pos[1]--;
+        if (testMaze.checkValid(testPlayer.getPos(), 'u')) pos[0]--;
         testPlayer.updatePos('u',testMaze);
         assertEquals(pos, testPlayer.getPos(), "Update Position Error");
-        if (testMaze.checkValid(testPlayer.getPos(), 'r')) pos[0]++;
+        if (testMaze.checkValid(testPlayer.getPos(), 'r')) pos[1]++;
         testPlayer.updatePos('r',testMaze);
         assertEquals(pos, testPlayer.getPos(), "Update Position Error");
-        if (testMaze.checkValid(testPlayer.getPos(), 'r')) pos[0]--;
+        if (testMaze.checkValid(testPlayer.getPos(), 'r')) pos[1]--;
         testPlayer.updatePos('l',testMaze);
         assertEquals(pos, testPlayer.getPos(), "Update Position Error");
     }
