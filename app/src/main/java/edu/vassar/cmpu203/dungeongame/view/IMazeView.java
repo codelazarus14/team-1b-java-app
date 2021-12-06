@@ -8,6 +8,7 @@ public interface IMazeView {
         void onPlayerInteract(IMazeView mazeView);
         void onInventoryOpen(IMazeView mazeView);
         void onResetMaze(IMazeView mazeView);
+        void onGameOver(IMazeView mazeView);
     }
 
     void updateMaze(String mazeText);
