@@ -122,6 +122,11 @@ public class ControllerActivity extends AppCompatActivity implements IMazeView.L
         this.onStartGame();
     }
 
+    @Override
+    public void onGameOver(IMazeView mazeView) {
+
+    }
+
     //:[
     public void onPlayerMoveInput(char dir) {
         Log.i("DungeonGame", "controller received player move, handling: " + dir);

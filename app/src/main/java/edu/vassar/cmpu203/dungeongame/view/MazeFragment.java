@@ -53,9 +53,9 @@ public class MazeFragment extends Fragment implements IMazeView {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         updateMaze(mazeText);
 
-        this.binding.interactbutton.setOnClickListener(clickedView ->
+        this.binding.interactButton.setOnClickListener(clickedView ->
                 listener.onPlayerInteract(MazeFragment.this));
-        this.binding.inventorybutton.setOnClickListener(clickedView ->
+        this.binding.inventoryButton.setOnClickListener(clickedView ->
                 listener.onInventoryOpen(MazeFragment.this));
         this.binding.upArrow.setOnClickListener(clickedView ->
                 listener.onPlayerMoveInput('u', MazeFragment.this));
@@ -66,8 +66,10 @@ public class MazeFragment extends Fragment implements IMazeView {
         this.binding.rightArrow.setOnClickListener(clickedView ->
                 listener.onPlayerMoveInput('r', MazeFragment.this));
 
-        this.binding.resetButton.setOnClickListener(clickedView ->
+        this.binding.nextButton.setOnClickListener(clickedView ->
                 listener.onResetMaze(MazeFragment.this));
+        this.binding.quitButton.setOnClickListener(clickedView ->
+                listener.onGameOver(MazeFragment.this));
     }
 
     @Override
@@ -93,7 +95,8 @@ public class MazeFragment extends Fragment implements IMazeView {
         AlertDialog dialog = builder.create();
         dialog.show();
         //show reset button
-        this.binding.resetButton.setVisibility(View.VISIBLE);
+        this.binding.nextButton.setVisibility(View.VISIBLE);
+        this.binding.quitButton.setVisibility(View.VISIBLE);
         this.isComplete = true;
     }
 
