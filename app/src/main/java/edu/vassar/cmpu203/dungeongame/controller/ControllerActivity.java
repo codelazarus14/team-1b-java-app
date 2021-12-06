@@ -72,7 +72,7 @@ public class ControllerActivity extends AppCompatActivity implements IMazeView.L
         int[] playerPos = p.getPos();
         Log.i("DungeonGame", "new player position is " + playerPos[0] + "," + playerPos[1]);
         mazeView.updateMaze(this.maze.toObscuredString(p));
-        if (maze.isEnd(p)) this.onEnd(mazeView);
+//        if (maze.isEnd(p)) this.onEnd(mazeView);
     }
 
 
@@ -81,6 +81,10 @@ public class ControllerActivity extends AppCompatActivity implements IMazeView.L
         Node n = this.maze.mazeArray[p.getPos()[1]][p.getPos()[0]];
         Interactable interactable = n.nodeContents;
         if (interactable.id == "Nothing") return;
+        if (interactable.id == "End") {
+            if (maze.isEnd(p)) this.onEnd(mazeView);
+            return;
+        }
         Log.i("DungeonGame", "controller received player interaction, handling: ");
         p.openObject(maze);
         mazeView.onInteraction(interactable);
@@ -130,7 +134,7 @@ public class ControllerActivity extends AppCompatActivity implements IMazeView.L
 
         // I commented this out because this method is missing the view parameter
         // so you can't access it when you need to show the dialog/reset button in the fragment
-        //if (maze.isEnd(p)) this.onEnd();
+//        if (maze.isEnd(p)) this.onEnd(this.mainView);
     }
 
     public boolean onKeyDown(int keyCode, KeyEvent event) {
