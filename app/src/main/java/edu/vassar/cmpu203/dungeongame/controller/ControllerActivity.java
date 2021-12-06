@@ -1,5 +1,6 @@
 package edu.vassar.cmpu203.dungeongame.controller;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -9,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentFactory;
 
+import edu.vassar.cmpu203.dungeongame.R;
 import edu.vassar.cmpu203.dungeongame.model.Interactable;
 import edu.vassar.cmpu203.dungeongame.model.Maze;
 import edu.vassar.cmpu203.dungeongame.model.Node;
@@ -70,7 +72,7 @@ public class ControllerActivity extends AppCompatActivity implements IMazeView.L
         int[] playerPos = p.getPos();
         Log.i("DungeonGame", "new player position is " + playerPos[0] + "," + playerPos[1]);
         mazeView.updateMaze(this.maze.toObscuredString(p));
-        if (maze.isEnd(p)) this.onMazeEnd(mazeView);
+//        if (maze.isEnd(p)) this.onEnd(mazeView);
     }
 
 
@@ -79,6 +81,10 @@ public class ControllerActivity extends AppCompatActivity implements IMazeView.L
         Node n = this.maze.mazeArray[p.getPos()[1]][p.getPos()[0]];
         Interactable interactable = n.nodeContents;
         if (interactable.id == "Nothing") return;
+        if (interactable.id == "End") {
+            if (maze.isEnd(p)) this.onEnd(mazeView);
+            return;
+        }
         Log.i("DungeonGame", "controller received player interaction, handling: ");
         p.openObject(maze);
         mazeView.onInteraction(interactable);
@@ -116,11 +122,6 @@ public class ControllerActivity extends AppCompatActivity implements IMazeView.L
         this.onStartGame();
     }
 
-    @Override
-    public void onGameOver(IMazeView mazeView) {
-        //TODO
-    }
-
     //:[
     public void onPlayerMoveInput(char dir) {
         Log.i("DungeonGame", "controller received player move, handling: " + dir);
@@ -136,7 +137,7 @@ public class ControllerActivity extends AppCompatActivity implements IMazeView.L
 
         // I commented this out because this method is missing the view parameter
         // so you can't access it when you need to show the dialog/reset button in the fragment
-        //if (maze.isEnd(p)) this.onMazeEnd();
+//        if (maze.isEnd(p)) this.onEnd(this.mainView);
     }
 
     public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -177,13 +178,11 @@ public class ControllerActivity extends AppCompatActivity implements IMazeView.L
 
         this.mainView.displayFragment(mazeFrag);
     }
-    public void onMazeEnd(IMazeView mazeView) {
+    public void onEnd(IMazeView mazeView) {
         //TODO - trigger method in mazeFragment as below, but then swap to leaderboard
         Log.i("DungeonGame", "congratulations");
         mazeView.setMazeSuccessConfiguration();
     }
-
-
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {

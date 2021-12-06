@@ -178,6 +178,7 @@ public class Maze implements Serializable {
                     break;
             }
         }
+        mazeArray[xaxis - 1][xaxis - 1].nodeContents = new End();
         Log.i("DungeonGame", "Maze:\n" + this);
     }
 
