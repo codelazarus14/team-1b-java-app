@@ -23,5 +23,11 @@ public class Chest extends Interactable{
 
         itemType = (int) (Math.random() * 4);
         itemName = loot[itemType];
+
+        this.titleText = "You found a chest containing " + itemQuantity + " item";
+        if (itemQuantity != 1) this.titleText += "s";
+        this.titleText += ". There might be " + (int) (Math.random() * 10) + " chests left.";
+
+        this.bodyText = "You found a " + itemName;
     }
 }

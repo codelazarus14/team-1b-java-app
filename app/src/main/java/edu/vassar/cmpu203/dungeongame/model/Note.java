@@ -14,34 +14,33 @@ public class Note extends Interactable {
 
         int randomContents = (int) (Math.random() * 6);
         switch (randomContents) {
-            case 0 : contents = "According to all known laws\n" + "of aviation,\n" +
-                    "there is no way a bee\n" + "should be able to fly.\n" +
-                    "Its wings are too small to get\n" + "its fat little body off the ground.\n" +
-                    "The bee, of course, flies anyway\n" + "because bees don't care\n" +
+            case 0 : contents = "According to all known laws " + "of aviation, " +
+                    "there is no way a bee " + "should be able to fly. " +
+                    "Its wings are too small to get " + "its fat little body off the ground. " +
+                    "The bee, of course, flies anyway " + "because bees don't care " +
                     "what humans think is impossible.";
                 break;
-            case 1 : contents = "Three days grade school,\n" + "three days high school.\n" +
+            case 1 : contents = "Three days grade school, " + "three days high school. " +
                     "Those were awkward.";
                 break;
-            case 2 : contents = "So you'll just work us to death?\n" + "We'll sure try.\n" +
-                    "Wow! That blew my mind!\n";
+            case 2 : contents = "So you'll just work us to death? " + "We'll sure try. " +
+                    "Wow! That blew my mind! ";
                 break;
-            case 3 : contents = "Need I remind a wise man like you \n" +
-                    "of the fact that hunger is sated with food?\n" +
-                    "Food can be found in shops!\n";
+            case 3 : contents = "Need I remind a wise man like you " +
+                    "of the fact that hunger is sated with food? " +
+                    "Food can be found in shops! ";
                 break;
-            case 4 : contents = "People only care about bloodshed\n" +
-                    "when it's their blood\n and their shed";
+            case 4 : contents = "People only care about bloodshed " +
+                    "when it's their blood and their shed";
                 break;
-            case 5 :contents = "I despise trickery, \n"+
-                    "but if we ourselves are to suffer trickery\n" +
+            case 5 :contents = "I despise trickery, "+
+                    "but if we ourselves are to suffer trickery " +
                     "then our hands are no longer tied";
                 break;
             default : contents = "AAAAAAAAAAAAAAAAAAAAA";
                 break;
         }
+        this.titleText = "You found a note. There might be " + (int) (Math.random()*10) + " notes left";
+        this.bodyText = contents;
     }
-
-
-
 }
