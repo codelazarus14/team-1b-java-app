@@ -1,8 +1,13 @@
 <resources>
-    <string name="app_name">Dungeon Game</string>
+    <string name="app_name">Escape From Main House</string>
     <string name="maze_view">Maze Goes Here</string>
     <string name="arrow">V</string>
-    <string name="main_menu_title">Welcome to Main House</string>
+    <string name="main_menu_title"> You wake up in a haze, smelling of cheap cranberry vodka. Your phone and wallet are gone.
+        With only foggy memories of the night before you slouch up and look at your surroundings.
+        You see the flickering fluorescent lights, the chipped floor tiles, and remains of dead cockroaches.
+        The hallways seem to stretch on forever and you can\'t see the way out.
+        Horror wells up in you as realize where you are. You know you have to try and escape.
+        \n\n Welcome to Main House</string>
     <string name="start_button">Start</string>
     <string name="maze_complete_title">Congratulations!</string>
     <string name="maze_complete_text">You reached the end of the maze!</string>
