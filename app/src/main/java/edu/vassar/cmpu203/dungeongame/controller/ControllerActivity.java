@@ -1,5 +1,6 @@
 package edu.vassar.cmpu203.dungeongame.controller;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -9,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentFactory;
 
+import edu.vassar.cmpu203.dungeongame.R;
 import edu.vassar.cmpu203.dungeongame.model.Interactable;
 import edu.vassar.cmpu203.dungeongame.model.Maze;
 import edu.vassar.cmpu203.dungeongame.model.Node;
@@ -29,6 +31,7 @@ public class ControllerActivity extends AppCompatActivity implements IMazeView.L
     private Chest c = new Chest();
     private static final String MAZE = "maze";
     private static final String PLAYER = "player";
+    private String inventoryString;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +86,19 @@ public class ControllerActivity extends AppCompatActivity implements IMazeView.L
         mazeView.onInteraction(interactable);
     }
 
+    @Override
+    public void onInventoryOpen(IMazeView mazeView) {
+        inventoryString = "";
+        for (int i = 0; i < c.loot.length;i++) {
+            inventoryString += c.loot[i] + ": x" + p.inventory[i] + "\n";
+        }
+        inventoryString += "Notes: x" + p.notes;
+        Interactable workAround = new Interactable();
+        workAround.bodyText = inventoryString;
+        workAround.titleText = "Inventory";
+        mazeView.onInteraction(workAround);
+    }
+
 
     @Override
     public void onResetMaze(IMazeView mazeView) {
@@ -91,8 +107,11 @@ public class ControllerActivity extends AppCompatActivity implements IMazeView.L
 
         //this is here because the maze/player won't reset otherwise
         this.maze = new Maze(8);
+        int[] savedInventory = p.inventory;
+        int savedNotes = p.notes;
         this.p = new Player(0, 0);
-
+        p.inventory = savedInventory;
+        p.notes = savedNotes;
         this.onStartGame();
     }
 

@@ -37,9 +37,10 @@ public class Note extends Interactable {
                     "but if we ourselves are to suffer trickery " +
                     "then our hands are no longer tied";
                 break;
-            default : contents = "AAAAAAAAAAAAAAAAAAAAA";
+            default : contents = "Something broke! You weren't supposed to see this!";
                 break;
         }
+
         this.titleText = "You found a note. There might be " + (int) (Math.random()*10) + " notes left";
         this.bodyText = contents;
     }

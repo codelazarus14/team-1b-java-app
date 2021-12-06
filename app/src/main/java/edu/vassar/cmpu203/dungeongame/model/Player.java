@@ -12,8 +12,8 @@ public class Player implements Serializable {
      * things in that array will directly correspond to the position in the inventory array
      * which will store the quantity of said items in the corresponding position
      */
-    int[] inventory = new int[chestRef.loot.length];
-    int notes = 0; //stores the amount of notes found by the player
+    public int[] inventory = new int[chestRef.loot.length];
+    public int notes = 0; //stores the amount of notes found by the player
 
     //default constructor
     public Player() {}
@@ -28,12 +28,23 @@ public class Player implements Serializable {
     }
 
     public void openObject(Maze m){
+        /**
+         * Case 1: The item is a chest. Adds the quantity to the appropriate slot in the inventory
+         * and then empties the chest.
+         * Case 2: The item is a note. Adds the quantity to the notes variable and marks it as having
+         * been read so that you cannot spam
+         * Case 3: It's a Mimic (ayo) and a random amount of a random item is taken by the little bastard
+         *
+         * In each case, after the Interactable has been interacted with, it will no longer be
+         * interactable-able.
+         */
         if (m.mazeArray[pos[1]][pos[0]].nodeContents.accessed == false) {
             if (m.mazeArray[pos[1]][pos[0]].nodeContents instanceof Chest) {
                 inventory[((Chest) m.mazeArray[pos[1]][pos[0]].nodeContents).itemType] +=
                         ((Chest) m.mazeArray[pos[1]][pos[0]].nodeContents).itemQuantity;
                 ((Chest) m.mazeArray[pos[1]][pos[0]].nodeContents).itemQuantity = 0;
                 m.mazeArray[pos[1]][pos[0]].nodeContents.accessed = true;
+
             }
             if (m.mazeArray[pos[1]][pos[0]].nodeContents instanceof Note) {
                 notes += 1;
@@ -46,6 +57,9 @@ public class Player implements Serializable {
                 }
                 int randomQuantity = (int) (Math.random() * inventory[randomItem]);
                 inventory[randomItem] -= randomQuantity;
+                ((Mimic) m.mazeArray[pos[1]][pos[0]].nodeContents).bodyText =
+                        "You lost: " + chestRef.loot[randomItem] + " x" + Integer.toString(randomQuantity);
+                m.mazeArray[pos[1]][pos[0]].nodeContents.accessed = true;
             }
         }
     }
