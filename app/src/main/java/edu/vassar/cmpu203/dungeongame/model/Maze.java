@@ -182,6 +182,7 @@ public class Maze implements Serializable {
     }
 
 
+
     public boolean checkValid(int[] pos, char dir) {
         //This method checks if a move in a given direction will be valid or not
         //"valid" being if there is a wall in the way or not

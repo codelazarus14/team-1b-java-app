@@ -90,9 +90,12 @@ public class ControllerActivity extends AppCompatActivity implements IMazeView.L
     public void onInventoryOpen(IMazeView mazeView) {
         inventoryString = "";
         for (int i = 0; i < c.loot.length;i++) {
-            inventoryString += c.loot[i] + ": x" + p.inventory[i] + "\n";
+            if (p.inventory[i] > 0) {inventoryString += c.loot[i] + ": x" + p.inventory[i] + "\n";}
         }
-        inventoryString += "Notes: x" + p.notes;
+        if (p.notes > 0) {inventoryString += "Notes: x" + p.notes; }
+        if (inventoryString == "") {
+            inventoryString = "Empty. Just like you.";
+        }
         Interactable workAround = new Interactable();
         workAround.bodyText = inventoryString;
         workAround.titleText = "Inventory";
