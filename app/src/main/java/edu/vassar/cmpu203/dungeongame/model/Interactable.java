@@ -10,8 +10,8 @@ import java.lang.Math;
 public class Interactable implements Serializable {
     public String id; //This is what I am using as the indicator for what kind of Interactable subclass it is
     boolean accessed;
-    public String titleText = "Life is naught but pain";
-    public String bodyText = "Death is the only release";
+    public String titleText = "hey Rui";
+    public String bodyText = "A+ pls owo";
 
     public Interactable() {
     }
