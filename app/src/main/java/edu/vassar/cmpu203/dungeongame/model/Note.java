@@ -37,9 +37,12 @@ public class Note extends Interactable {
                     "but if we ourselves are to suffer trickery\n" +
                     "then our hands are no longer tied";
                 break;
-            default : contents = "AAAAAAAAAAAAAAAAAAAAA";
+            default : contents = "Something broke! You weren't supposed to see this!";
                 break;
         }
+
+        super.titleText = "The Note reads:";
+        super.bodyText = contents;
     }
 
 

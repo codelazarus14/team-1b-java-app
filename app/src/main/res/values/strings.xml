@@ -8,6 +8,8 @@
     <string name="maze_complete_text">You reached the end of the maze!</string>
     <string name="reset_button">Reset</string>
     <string name="interact_button">🤏</string>
+    <string name="inventory_button">🎒</string>
+
     <string-array name="difficulties">
         <item>Easy</item>
         <item>Medium</item>

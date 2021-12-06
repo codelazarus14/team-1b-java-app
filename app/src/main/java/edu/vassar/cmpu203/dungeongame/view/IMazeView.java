@@ -6,12 +6,11 @@ public interface IMazeView {
     interface Listener {
         void onPlayerMoveInput(char dir, IMazeView mazeView);
         void onPlayerInteract(IMazeView mazeView);
+        void onInventoryOpen(IMazeView mazeView);
         void onResetMaze(IMazeView mazeView);
     }
 
     void updateMaze(String mazeText);
-
     void setMazeSuccessConfiguration();
-
     void onInteraction(Interactable interactable);
 }

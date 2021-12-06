@@ -9,5 +9,6 @@ public class Mimic extends Interactable{
     public Mimic() {
         super.id = "Mimic";
         super.accessed = false;
+        super.titleText = "Oh no! It was a Mimic!";
     }
 }
