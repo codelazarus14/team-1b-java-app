@@ -37,6 +37,16 @@ public class Chest extends Interactable{
         super.bodyText = "Quantity " + Integer.toString(itemQuantity);
         itemType = (int) (Math.random() * loot.length);
         itemName = loot[itemType];
-        super.titleText = "You found: " + itemName;
+
+        this.titleText = "You found a chest containing " + itemQuantity + " item";
+        if (itemQuantity != 1) this.titleText += "s";
+        this.titleText += ".";
+
+        this.bodyText = "You found ";
+        this.bodyText += itemQuantity == 1 ? "a" : itemQuantity;
+        this.bodyText += " " + itemName;
+        if (itemQuantity != 1) this.bodyText += "s";
+        this.bodyText += ".\n\n";
+        this.bodyText += "There might be " + (int) (Math.random() * 10) + " chests left.";
     }
 }
