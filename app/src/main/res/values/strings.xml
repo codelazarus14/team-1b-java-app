@@ -15,6 +15,9 @@
     <string name="quit_button">Quit</string>
     <string name="interact_button">🤏</string>
     <string name="inventory_button">🎒</string>
+    <string name="volume_button">🔊</string>
+    <string name="confirm_button">Confirm</string>
+    <string name="quit_to_menu_button">Return to Menu</string>
 
     <string-array name="difficulties">
         <item>Easy</item>
