@@ -4,6 +4,7 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -231,7 +232,7 @@ public class ControllerActivity extends AppCompatActivity implements IMazeView.L
         if (player == null) return;
         player.release();
         player = null;
-        Log.i("Dungeon Game", "MediaPlayer released");
+        Log.i("DungeonGame", "MediaPlayer released");
     }
 
     public void toggleMusic() {

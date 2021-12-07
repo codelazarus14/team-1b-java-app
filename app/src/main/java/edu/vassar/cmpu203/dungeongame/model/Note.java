@@ -31,7 +31,8 @@ public class Note extends Interactable {
                 "Whoever put me in this hell is going to pay. I’ll make sure of it.",
                 "I’ve been here for 2 days now. Thank god for my watch telling me the time. The lights went out at 6:55 yesterday. Luckily my watch is old, so it faintly glows. The radium would eventually kill me, but I think hunger will get their first.",
                 "Day 12 and I’m feeling fine. There are bits of food everywhere. Enough to sustain on, but it always comes at a risk. Those chests are dangerous.",
-
+                "You're walking through the woods. There's no one around and you phone is dead. Out of the corner of your eye you spot him: Shia Labeouf",
+                "He's following, about thrity feet back, He gets down on all fours and breaks into a sprint He's gaining on you: Shia LaBeouf",
         };
 
         int randomContents = (int) (Math.random() * possibleNotes.length);
