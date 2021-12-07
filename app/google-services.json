@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "544662979016",
+    "project_id": "dungeon-game-53c14",
+    "storage_bucket": "dungeon-game-53c14.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:544662979016:android:44cc9a5f7478dc032580fd",
+        "android_client_info": {
+          "package_name": "edu.vassar.cmpu203.dungeongame"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "544662979016-j2rf94q9iuvcpjjb7c1sqhlv0bp634id.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCpwQ0nMUuf4C3T24fhpubvpmS_DaTAxfc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "544662979016-j2rf94q9iuvcpjjb7c1sqhlv0bp634id.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

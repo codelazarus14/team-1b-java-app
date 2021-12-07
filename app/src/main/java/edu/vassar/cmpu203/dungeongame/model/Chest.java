@@ -20,7 +20,7 @@ public class Chest extends Interactable{
             "Orgo signup sheet",
             "Wojack Meme",
             "Garfield Brand Lighter",
-            "JoJo's Bizzare Adventure Keys",
+            "JoJo's Bizzare Adventure Keyring",
             "Pink Glow in the Dark Timepiece",
             "Half Eaten Vegan Wrap",
             "Surprisingly Unopened Oat Milk Bottle",
