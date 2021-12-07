@@ -20,11 +20,12 @@ public class Chest extends Interactable{
             "Orgo signup sheet",
             "Wojack Meme",
             "Garfield Brand Lighter",
-            "JoJo's Bizzare Adventure Keyring",
+            "JoJo's Bizarre Adventure Keyring",
             "Pink Glow in the Dark Timepiece",
             "Half Eaten Vegan Wrap",
             "Surprisingly Unopened Oat Milk Bottle",
             "Communal Ice Cream Scooper",
+            "Dead Bedazzled Phone",
     };
     /**
      * This will be used when calculating the score of a player by breaking down the different items
