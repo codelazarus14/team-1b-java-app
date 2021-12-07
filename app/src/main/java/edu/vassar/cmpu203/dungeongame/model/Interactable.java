@@ -4,7 +4,7 @@ import java.lang.Math;
 
 /*
  * This is the generalized superclass for all Interactable objects
- * Those being chests, notes, and "nothing"
+ * Those being chests, notes, Mimics, and "nothing"
  */
 
 public class Interactable implements Serializable {

@@ -57,6 +57,7 @@ public class LeaderboardFragment extends Fragment implements ILeaderboardView {
 
     @Override
     public void updateLeaderboardView(String lbText) {
-        this.binding.leaderboardView.setText(lbText);
+        String newlbText =  this.binding.leaderboardView.getText().toString() + "\n" + lbText;
+        this.binding.leaderboardView.setText(newlbText);
     }
 }

@@ -38,12 +38,12 @@ public class Player implements Serializable {
          * In each case, after the Interactable has been interacted with, it will no longer be
          * interactable-able.
          */
-        if (m.mazeArray[pos[1]][pos[0]].nodeContents.accessed == false) {
+        if (!m.mazeArray[pos[1]][pos[0]].nodeContents.accessed) {
             if (m.mazeArray[pos[1]][pos[0]].nodeContents instanceof Chest) {
+                ((Chest) m.mazeArray[pos[1]][pos[0]].nodeContents).accessed = true;
                 inventory[((Chest) m.mazeArray[pos[1]][pos[0]].nodeContents).itemType] +=
                         ((Chest) m.mazeArray[pos[1]][pos[0]].nodeContents).itemQuantity;
                 ((Chest) m.mazeArray[pos[1]][pos[0]].nodeContents).itemQuantity = 0;
-                m.mazeArray[pos[1]][pos[0]].nodeContents.accessed = true;
 
             }
             if (m.mazeArray[pos[1]][pos[0]].nodeContents instanceof Note) {

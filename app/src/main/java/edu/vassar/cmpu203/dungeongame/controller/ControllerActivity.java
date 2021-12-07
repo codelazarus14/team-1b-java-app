@@ -30,6 +30,7 @@ public class ControllerActivity extends AppCompatActivity implements IMazeView.L
 
     private Maze maze;
     private IMainView mainView;
+    private ILeaderboardView leaderboardView;
     private Player p;
     private Chest c = new Chest();
     private static final String MAZE = "maze";
@@ -129,7 +130,7 @@ public class ControllerActivity extends AppCompatActivity implements IMazeView.L
         Log.i("DungeonGame", "game over, switching to leaderboard");
 
         //TODO - uncomment once leaderboard is implemented
-//        String lbText = leaderboard's text
+//        String lbText = this.leaderboardView.nameEditText
 //        Bundle fragArgs = LeaderboardFragment.makeArgsBundle(lbText);
         Fragment lbFrag = new LeaderboardFragment(this);
 //        lbFrag.setArguments(fragArgs);
@@ -137,6 +138,19 @@ public class ControllerActivity extends AppCompatActivity implements IMazeView.L
         this.mainView.displayFragment(lbFrag);
 
         stopMusic();
+    }
+
+    @Override
+    public void onPlayerNameInput(String name, ILeaderboardView leaderboardView) {
+        //TODO - add player name + score to leaderboard and call
+        // leaderboardView.updateLeaderboardView(leaderboardText);
+        int score = 0;
+        for (int i = 0; i < c.value.length; i++) {
+            score += (p.inventory[i] * c.value[i]);
+        }
+        score += p.notes;
+        String newPlayerEntry = score + "    " + name; // 4 spaces
+        leaderboardView.updateLeaderboardView(newPlayerEntry);
     }
 
     //:[
@@ -254,12 +268,6 @@ public class ControllerActivity extends AppCompatActivity implements IMazeView.L
         super.onStop();
         if (mediaPlayer == null) return;
         stopMusic();
-    }
-
-    @Override
-    public void onPlayerNameInput(String name, ILeaderboardView leaderboardView) {
-        //TODO - add player name + score to leaderboard and call
-        // leaderboardView.updateLeaderboardView(leaderboardText);
     }
 
     @Override
