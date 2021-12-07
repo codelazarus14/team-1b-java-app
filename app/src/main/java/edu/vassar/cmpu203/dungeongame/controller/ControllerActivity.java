@@ -244,17 +244,10 @@ public class ControllerActivity extends AppCompatActivity implements IMazeView.L
     }
 
     public void stopMusic() {
-<<<<<<< HEAD
-        if (player == null) return;
-        player.release();
-        player = null;
-        Log.i("DungeonGame", "MediaPlayer released");
-=======
         if (mediaPlayer == null) return;
         mediaPlayer.release();
         mediaPlayer = null;
         Log.i("Dungeon Game", "MediaPlayer released");
->>>>>>> 05a12a6952e6fc24f6aadfe01bac23c336ea7821
     }
 
     public void toggleMusic() {
