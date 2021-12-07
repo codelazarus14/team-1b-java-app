@@ -1,11 +1,9 @@
 package edu.vassar.cmpu203.dungeongame.controller;
 
-import android.app.AlertDialog;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
-import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,6 +19,7 @@ import edu.vassar.cmpu203.dungeongame.model.Chest;
 import edu.vassar.cmpu203.dungeongame.view.IMainView;
 import edu.vassar.cmpu203.dungeongame.view.IMazeView;
 import edu.vassar.cmpu203.dungeongame.view.IMenuView;
+import edu.vassar.cmpu203.dungeongame.view.LeaderboardFragment;
 import edu.vassar.cmpu203.dungeongame.view.MainView;
 import edu.vassar.cmpu203.dungeongame.view.MazeFragment;
 import edu.vassar.cmpu203.dungeongame.view.MenuFragment;
@@ -86,7 +85,7 @@ public class ControllerActivity extends AppCompatActivity implements IMazeView.L
         Interactable interactable = n.nodeContents;
         if (interactable.id == "Nothing") return;
         if (interactable.id == "End") {
-            if (maze.isEnd(p)) this.onEnd(mazeView);
+            if (maze.isEnd(p)) this.onMazeComplete(mazeView);
             return;
         }
         Log.i("DungeonGame", "controller received player interaction, handling: ");
@@ -112,10 +111,7 @@ public class ControllerActivity extends AppCompatActivity implements IMazeView.L
 
 
     @Override
-    public void onResetMaze(IMazeView mazeView) {
-        //currently this just recreates maze fragment, should be called during maze transition
-        //TODO
-
+    public void onLoadNextMaze(IMazeView mazeView) {
         //this is here because the maze/player won't reset otherwise
         this.maze = new Maze(8);
         int[] savedInventory = p.inventory;
@@ -128,7 +124,16 @@ public class ControllerActivity extends AppCompatActivity implements IMazeView.L
 
     @Override
     public void onGameOver(IMazeView mazeView) {
+        Log.i("DungeonGame", "game over, switching to leaderboard");
 
+//        String lbText = leaderboard's text
+//        Bundle fragArgs = LeaderboardFragment.makeArgsBundle(lbText);
+//        Fragment lbFrag = new LeaderboardFragment(this);
+//        lbFrag.setArguments(fragArgs);
+//
+//        this.mainView.displayFragment(lbFrag);
+
+        stopMusic();
     }
 
     //:[
@@ -190,9 +195,10 @@ public class ControllerActivity extends AppCompatActivity implements IMazeView.L
         if (firstOpen) playMusic();
         firstOpen = false;
     }
-    public void onEnd(IMazeView mazeView) {
+
+    public void onMazeComplete(IMazeView mazeView) {
         //TODO - trigger method in mazeFragment as below, but then swap to leaderboard
-        Log.i("DungeonGame", "congratulations");
+        Log.i("DungeonGame", "reached end of maze");
         mazeView.setMazeSuccessConfiguration();
     }
 
@@ -216,12 +222,7 @@ public class ControllerActivity extends AppCompatActivity implements IMazeView.L
     public void playMusic() {
         if (player == null) {
             player = MediaPlayer.create(this, R.raw.soundtrack);
-            player.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                @Override
-                public void onCompletion(MediaPlayer mp) {
-                    player.start();
-                }
-            });
+            player.setOnCompletionListener(mp -> player.start());
         } else return;
         player.start();
     }

@@ -20,8 +20,17 @@ public class LeaderboardFragment extends Fragment implements ILeaderboardView {
     private FragmentLeaderboardBinding binding;
     private Listener listener;
 
+    private static final String LEADERBOARD_TEXT = "lbText";
+    private String lbText;
+
     public LeaderboardFragment(Listener listener) {
         this.listener = listener;
+    }
+
+    public static Bundle makeArgsBundle(String lbText) {
+        Bundle args = new Bundle();
+        args.putString(LEADERBOARD_TEXT, lbText);
+        return args;
     }
 
     @Override

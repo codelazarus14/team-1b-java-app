@@ -7,7 +7,7 @@ public interface IMazeView {
         void onPlayerMoveInput(char dir, IMazeView mazeView);
         void onPlayerInteract(IMazeView mazeView);
         void onInventoryOpen(IMazeView mazeView);
-        void onResetMaze(IMazeView mazeView);
+        void onLoadNextMaze(IMazeView mazeView);
         void onGameOver(IMazeView mazeView);
     }
 
