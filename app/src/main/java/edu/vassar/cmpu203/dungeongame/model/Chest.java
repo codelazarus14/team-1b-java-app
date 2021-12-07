@@ -18,7 +18,13 @@ public class Chest extends Interactable{
             "Unused I.S. Degree",
             "Rowing Recruitment Flyer",
             "Orgo signup sheet",
-            "Wojack Meme"};
+            "Wojack Meme",
+            "Garfield Brand Lighter",
+            "JoJo's Bizzare Adventure Keys",
+            "Pink Glow in the Dark Timepiece",
+            "Half Eaten Vegan Wrap",
+            "Surprisingly Unopened Oat Milk Bottle",
+    };
     /**
      * This will be used when calculating the score of a player by breaking down the different items
      * in the inventory into a value and multiplying the value by the quantity of the item
