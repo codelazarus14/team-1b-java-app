@@ -17,6 +17,7 @@ import edu.vassar.cmpu203.dungeongame.model.Maze;
 import edu.vassar.cmpu203.dungeongame.model.Node;
 import edu.vassar.cmpu203.dungeongame.model.Player;
 import edu.vassar.cmpu203.dungeongame.model.Chest;
+import edu.vassar.cmpu203.dungeongame.view.ILeaderboardView;
 import edu.vassar.cmpu203.dungeongame.view.IMainView;
 import edu.vassar.cmpu203.dungeongame.view.IMazeView;
 import edu.vassar.cmpu203.dungeongame.view.IMenuView;
@@ -25,7 +26,7 @@ import edu.vassar.cmpu203.dungeongame.view.MainView;
 import edu.vassar.cmpu203.dungeongame.view.MazeFragment;
 import edu.vassar.cmpu203.dungeongame.view.MenuFragment;
 
-public class ControllerActivity extends AppCompatActivity implements IMazeView.Listener, IMenuView.Listener {
+public class ControllerActivity extends AppCompatActivity implements IMazeView.Listener, IMenuView.Listener, ILeaderboardView.Listener {
 
     private Maze maze;
     private IMainView mainView;
@@ -34,7 +35,7 @@ public class ControllerActivity extends AppCompatActivity implements IMazeView.L
     private static final String MAZE = "maze";
     private static final String PLAYER = "player";
     private String inventoryString;
-    private MediaPlayer player;
+    private MediaPlayer mediaPlayer;
     private boolean firstOpen = true;
 
     @Override
@@ -127,12 +128,13 @@ public class ControllerActivity extends AppCompatActivity implements IMazeView.L
     public void onGameOver(IMazeView mazeView) {
         Log.i("DungeonGame", "game over, switching to leaderboard");
 
+        //TODO - uncomment once leaderboard is implemented
 //        String lbText = leaderboard's text
 //        Bundle fragArgs = LeaderboardFragment.makeArgsBundle(lbText);
-//        Fragment lbFrag = new LeaderboardFragment(this);
+        Fragment lbFrag = new LeaderboardFragment(this);
 //        lbFrag.setArguments(fragArgs);
 //
-//        this.mainView.displayFragment(lbFrag);
+        this.mainView.displayFragment(lbFrag);
 
         stopMusic();
     }
@@ -198,7 +200,6 @@ public class ControllerActivity extends AppCompatActivity implements IMazeView.L
     }
 
     public void onMazeComplete(IMazeView mazeView) {
-        //TODO - trigger method in mazeFragment as below, but then swap to leaderboard
         Log.i("DungeonGame", "reached end of maze");
         mazeView.setMazeSuccessConfiguration();
     }
@@ -221,30 +222,51 @@ public class ControllerActivity extends AppCompatActivity implements IMazeView.L
 //    }
 
     public void playMusic() {
-        if (player == null) {
-            player = MediaPlayer.create(this, R.raw.soundtrack);
-            player.setOnCompletionListener(mp -> player.start());
+        if (mediaPlayer == null) {
+            mediaPlayer = MediaPlayer.create(this, R.raw.soundtrack);
+            mediaPlayer.setOnCompletionListener(mp -> mediaPlayer.start());
         } else return;
-        player.start();
+        mediaPlayer.start();
     }
 
     public void stopMusic() {
+<<<<<<< HEAD
         if (player == null) return;
         player.release();
         player = null;
         Log.i("DungeonGame", "MediaPlayer released");
+=======
+        if (mediaPlayer == null) return;
+        mediaPlayer.release();
+        mediaPlayer = null;
+        Log.i("Dungeon Game", "MediaPlayer released");
+>>>>>>> 05a12a6952e6fc24f6aadfe01bac23c336ea7821
     }
 
     public void toggleMusic() {
-        if (player == null) playMusic();
+        if (mediaPlayer == null) playMusic();
         else stopMusic();
-        player.start();
+        mediaPlayer.start();
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        if (player == null) return;
+        if (mediaPlayer == null) return;
         stopMusic();
+    }
+
+    @Override
+    public void onPlayerNameInput(String name, ILeaderboardView leaderboardView) {
+        //TODO - add player name + score to leaderboard and call
+        // leaderboardView.updateLeaderboardView(leaderboardText);
+    }
+
+    @Override
+    public void onReturnToMenu(ILeaderboardView leaderboardView) {
+        //recreates player to wipe notes/inventory
+        this.p = new Player(0,0);
+
+        this.mainView.displayFragment(new MenuFragment(this));
     }
 }
