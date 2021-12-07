@@ -70,6 +70,9 @@ public class MazeFragment extends Fragment implements IMazeView {
                 listener.onLoadNextMaze(MazeFragment.this));
         this.binding.quitButton.setOnClickListener(clickedView ->
                 listener.onGameOver(MazeFragment.this));
+
+        this.binding.volumeButton.setOnClickListener(clickedView ->
+                listener.onVolumeToggle(MazeFragment.this));
     }
 
     @Override

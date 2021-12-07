@@ -9,6 +9,7 @@ public interface IMazeView {
         void onInventoryOpen(IMazeView mazeView);
         void onLoadNextMaze(IMazeView mazeView);
         void onGameOver(IMazeView mazeView);
+        void onVolumeToggle(IMazeView mazeView);
     }
 
     void updateMaze(String mazeText);

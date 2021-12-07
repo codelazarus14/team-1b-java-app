@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -38,6 +39,7 @@ public class ControllerActivity extends AppCompatActivity implements IMazeView.L
     private String inventoryString;
     private MediaPlayer mediaPlayer;
     private boolean firstOpen = true;
+    private Button volumeButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -225,35 +227,32 @@ public class ControllerActivity extends AppCompatActivity implements IMazeView.L
         outState.putSerializable(PLAYER, this.p);
     }
 
-//    public void toggleMusic(View v) {
-//        toggleMusic();
-//    }
-//    public void playMusic (View v) {
-//        playMusic();
-//    }
-//    public void stopMusic (View v) {
-//        stopMusic();
-//    }
+    @Override
+    public void onVolumeToggle(IMazeView mazeView) {
+        volumeButton = (Button) findViewById(R.id.volumeButton);
+        if (mediaPlayer == null) {
+            playMusic();
+            volumeButton.setText("\uD83D\uDD0A");
+        }
+        else {
+            stopMusic();
+            volumeButton.setText("\uD83D\uDD07");
+        }
+    }
 
     public void playMusic() {
         if (mediaPlayer == null) {
             mediaPlayer = MediaPlayer.create(this, R.raw.soundtrack);
             mediaPlayer.setOnCompletionListener(mp -> mediaPlayer.start());
-        } else return;
-        mediaPlayer.start();
+            mediaPlayer.start();
+        }
     }
 
     public void stopMusic() {
         if (mediaPlayer == null) return;
         mediaPlayer.release();
         mediaPlayer = null;
-        Log.i("Dungeon Game", "MediaPlayer released");
-    }
-
-    public void toggleMusic() {
-        if (mediaPlayer == null) playMusic();
-        else stopMusic();
-        mediaPlayer.start();
+        Log.i("DungeonGame", "MediaPlayer released");
     }
 
     @Override
@@ -267,7 +266,7 @@ public class ControllerActivity extends AppCompatActivity implements IMazeView.L
     public void onReturnToMenu(ILeaderboardView leaderboardView) {
         //recreates player to wipe notes/inventory
         this.p = new Player(0,0);
-
         this.mainView.displayFragment(new MenuFragment(this));
+        firstOpen = true;
     }
 }
