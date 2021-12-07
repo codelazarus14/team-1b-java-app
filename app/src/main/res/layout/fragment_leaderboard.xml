@@ -13,13 +13,13 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="32dp"
-        android:ems="10"
-        android:inputType="textPersonName"
+        android:autofillHints="Enter your name"
         android:backgroundTint="@color/white"
+        android:ems="8"
+        android:inputType="textPersonName"
         android:textColor="@color/white"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:autofillHints="Enter your name"
         tools:ignore="LabelFor" />
 
     <Button

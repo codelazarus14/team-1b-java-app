@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentFactory;
 
+import edu.vassar.cmpu203.dungeongame.view.LeaderboardFragment;
 import edu.vassar.cmpu203.dungeongame.view.MazeFragment;
 import edu.vassar.cmpu203.dungeongame.view.MenuFragment;
 
@@ -26,6 +27,8 @@ public class DungeonGameFragFactory extends FragmentFactory {
             fragment = new MazeFragment(controller);
         else if (fragmentClass == MenuFragment.class)
             fragment = new MenuFragment(controller);
+        else if (fragmentClass == LeaderboardFragment.class)
+            fragment = new LeaderboardFragment(controller);
         else fragment = super.instantiate(classLoader, className);
 
         return fragment;

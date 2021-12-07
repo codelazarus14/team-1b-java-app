@@ -50,6 +50,9 @@ public class LeaderboardFragment extends Fragment implements ILeaderboardView {
             nameEditable.clear();
             listener.onPlayerNameInput(name,LeaderboardFragment.this);
         });
+
+        this.binding.returnToMenuButton.setOnClickListener(clickedView ->
+                listener.onReturnToMenu(LeaderboardFragment.this));
     }
 
     @Override
