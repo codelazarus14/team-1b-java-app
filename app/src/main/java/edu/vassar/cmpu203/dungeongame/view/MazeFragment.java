@@ -67,7 +67,7 @@ public class MazeFragment extends Fragment implements IMazeView {
                 listener.onPlayerMoveInput('r', MazeFragment.this));
 
         this.binding.nextButton.setOnClickListener(clickedView ->
-                listener.onResetMaze(MazeFragment.this));
+                listener.onLoadNextMaze(MazeFragment.this));
         this.binding.quitButton.setOnClickListener(clickedView ->
                 listener.onGameOver(MazeFragment.this));
     }
