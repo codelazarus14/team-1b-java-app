@@ -31,7 +31,7 @@ public class Note extends Interactable {
                 "Whoever put me in this hell is going to pay. I’ll make sure of it.",
                 "I’ve been here for 2 days now. Thank god for my watch telling me the time. The lights went out at 6:55 yesterday. Luckily my watch is old, so it faintly glows. The radium would eventually kill me, but I think hunger will get their first.",
                 "Day 12 and I’m feeling fine. There are bits of food everywhere. Enough to sustain on, but it always comes at a risk. Those chests are dangerous.",
-                
+
         };
 
         int randomContents = (int) (Math.random() * possibleNotes.length);
@@ -63,7 +63,14 @@ public class Note extends Interactable {
 //                break;
 //        }
 
-        this.titleText = "You found a note. There might be " + (int) (Math.random()*10) + " notes left";
+        this.titleText = "You found a note. There might be ";
+        int r = (int) (Math.random()*10);
+        if (r == 0) this.titleText += "no";
+        else if (r == 1) this.titleText += "a";
+        else this.titleText += r;
+        this.titleText += " note";
+        this.titleText += r == 1 ? "" : "s";
+        this.titleText += " left";
         this.bodyText = contents;
     }
 }
