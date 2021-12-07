@@ -51,6 +51,12 @@ public class Player implements Serializable {
                 m.mazeArray[pos[1]][pos[0]].nodeContents.accessed = true;
             }
             if (m.mazeArray[pos[1]][pos[0]].nodeContents instanceof Mimic) {
+                int check = -1;
+                for (int item: inventory) {
+                    if (item < 2) continue;
+                    check = 0;
+                }
+                if (check == -1) return;
                 int randomItem = (int) (Math.random() * inventory.length);
                 while (inventory[randomItem] < 2){
                     randomItem = (int) (Math.random() * inventory.length);

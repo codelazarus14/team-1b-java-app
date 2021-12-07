@@ -1,9 +1,11 @@
 package edu.vassar.cmpu203.dungeongame.controller;
 
 import android.app.AlertDialog;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -32,6 +34,8 @@ public class ControllerActivity extends AppCompatActivity implements IMazeView.L
     private static final String MAZE = "maze";
     private static final String PLAYER = "player";
     private String inventoryString;
+    private MediaPlayer player;
+    private boolean firstOpen = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -182,6 +186,9 @@ public class ControllerActivity extends AppCompatActivity implements IMazeView.L
         mazeFrag.setArguments(fragArgs);
 
         this.mainView.displayFragment(mazeFrag);
+
+        if (firstOpen) playMusic();
+        firstOpen = false;
     }
     public void onEnd(IMazeView mazeView) {
         //TODO - trigger method in mazeFragment as below, but then swap to leaderboard
@@ -194,5 +201,48 @@ public class ControllerActivity extends AppCompatActivity implements IMazeView.L
         super.onSaveInstanceState(outState);
         outState.putSerializable(MAZE, this.maze);
         outState.putSerializable(PLAYER, this.p);
+    }
+
+//    public void toggleMusic(View v) {
+//        toggleMusic();
+//    }
+//    public void playMusic (View v) {
+//        playMusic();
+//    }
+//    public void stopMusic (View v) {
+//        stopMusic();
+//    }
+
+    public void playMusic() {
+        if (player == null) {
+            player = MediaPlayer.create(this, R.raw.soundtrack);
+            player.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                @Override
+                public void onCompletion(MediaPlayer mp) {
+                    player.start();
+                }
+            });
+        } else return;
+        player.start();
+    }
+
+    public void stopMusic() {
+        if (player == null) return;
+        player.release();
+        player = null;
+        Log.i("Dungeon Game", "MediaPlayer released");
+    }
+
+    public void toggleMusic() {
+        if (player == null) playMusic();
+        else stopMusic();
+        player.start();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (player == null) return;
+        stopMusic();
     }
 }
