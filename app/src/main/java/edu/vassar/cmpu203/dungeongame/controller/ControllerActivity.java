@@ -1,16 +1,32 @@
 package edu.vassar.cmpu203.dungeongame.controller;
 
+import android.content.Context;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentFactory;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldPath;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import edu.vassar.cmpu203.dungeongame.R;
 import edu.vassar.cmpu203.dungeongame.model.Interactable;
@@ -36,10 +52,8 @@ public class ControllerActivity extends AppCompatActivity implements IMazeView.L
     private Chest c = new Chest();
     private static final String MAZE = "maze";
     private static final String PLAYER = "player";
-    private String inventoryString;
     private MediaPlayer mediaPlayer;
     private boolean firstOpen = true;
-    private Button volumeButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,11 +114,13 @@ public class ControllerActivity extends AppCompatActivity implements IMazeView.L
 
     @Override
     public void onInventoryOpen(IMazeView mazeView) {
-        inventoryString = "";
+        String inventoryString = "";
         for (int i = 0; i < c.loot.length;i++) {
-            if (p.inventory[i] > 0) {inventoryString += c.loot[i] + ": x" + p.inventory[i] + "\n";}
+            if (p.inventory[i] > 0) {
+                inventoryString += c.loot[i] + ": x" + p.inventory[i] + "\n";}
         }
-        if (p.notes > 0) {inventoryString += "Notes: x" + p.notes; }
+        if (p.notes > 0) {
+            inventoryString += "Notes: x" + p.notes; }
         if (inventoryString == "") {
             inventoryString = "Empty. Just like you.";
         }
@@ -151,8 +167,43 @@ public class ControllerActivity extends AppCompatActivity implements IMazeView.L
             score += (p.inventory[i] * c.value[i]);
         }
         score += p.notes;
-        String newPlayerEntry = score + "    " + name; // 4 spaces
-        leaderboardView.updateLeaderboardView(newPlayerEntry);
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        Map<String, Object> userMap = new HashMap<>();
+        userMap.put("name", name);
+        userMap.put("score", score);
+
+        CollectionReference colref = db.collection("leaderboard");
+        colref.add(userMap);
+
+        String newPlayerEntry = "" + score;
+        while(newPlayerEntry.length() < 8) newPlayerEntry += " ";
+        newPlayerEntry += name; // Name always starts at index 8
+        leaderboardView.updateLeaderboardView(newPlayerEntry + "\n\n");
+
+        db.collection("leaderboard")
+                .orderBy("score", Query.Direction.DESCENDING)
+                .limit(10)
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot qSnap) {
+                        for (DocumentSnapshot dSnap: qSnap) {
+                            String oldPlayerEntry = "" + dSnap.get("score");
+                            while(oldPlayerEntry.length() < 8) oldPlayerEntry += " ";
+                            oldPlayerEntry += dSnap.get("name"); // Name always starts at index 8
+                            leaderboardView.updateLeaderboardView(oldPlayerEntry);
+                        }
+                    }
+                });
+
+        EditText nameEditText = (EditText) findViewById(R.id.nameEditText);
+        nameEditText.setVisibility(View.INVISIBLE);
+        Button nameConfirmButton = (Button) findViewById(R.id.nameConfirmButton);
+        nameConfirmButton.setVisibility(View.INVISIBLE);
+        InputMethodManager mgr = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        mgr.hideSoftInputFromWindow(nameEditText.getWindowToken(), 0);
     }
 
     //:[
@@ -229,7 +280,7 @@ public class ControllerActivity extends AppCompatActivity implements IMazeView.L
 
     @Override
     public void onVolumeToggle(IMazeView mazeView) {
-        volumeButton = (Button) findViewById(R.id.volumeButton);
+        Button volumeButton = (Button) findViewById(R.id.volumeButton);
         if (mediaPlayer == null) {
             playMusic();
             volumeButton.setText("\uD83D\uDD0A");
