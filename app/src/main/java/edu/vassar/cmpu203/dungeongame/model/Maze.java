@@ -459,6 +459,10 @@ public class Maze implements Serializable {
         return arr[0] == p.getPos()[0] && arr[1] == p.getPos()[1];
     }
 
+    public int getSize() {
+        return yaxis;
+    }
+
     public static void main(String[] args) {
         //Currently this is just diagnostic stuff. I wanted to be able to see how if the mazeArray and adjacency tables were being correctly spat out.
         int size = 5;

@@ -90,8 +90,6 @@ public class MazeFragment extends Fragment implements IMazeView {
         this.binding.leftArrow.setEnabled(false);
         this.binding.rightArrow.setEnabled(false);
         //create alert dialog and show it
-        //TODO - create a proper transition fragment which loads when this dialog is cancelled
-        // may also require making a proper fragment for the dialog itself
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.AlertDialogStyle);
         builder.setMessage(R.string.maze_complete_text)
                 .setTitle(R.string.maze_complete_title);

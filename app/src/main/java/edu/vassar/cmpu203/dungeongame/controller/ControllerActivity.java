@@ -133,14 +133,13 @@ public class ControllerActivity extends AppCompatActivity implements IMazeView.L
 
     @Override
     public void onLoadNextMaze(IMazeView mazeView) {
-        //this is here because the maze/player won't reset otherwise
-        this.maze = new Maze(8);
+        //preserve player data, move to start and generate new maze
         int[] savedInventory = p.inventory;
         int savedNotes = p.notes;
         this.p = new Player(0, 0);
         p.inventory = savedInventory;
         p.notes = savedNotes;
-        this.onStartGame();
+        this.onStartGame(maze.getSize() + 1);
     }
 
     @Override
@@ -251,8 +250,10 @@ public class ControllerActivity extends AppCompatActivity implements IMazeView.L
     }
 
     @Override
-    public void onStartGame() {
-        Log.i("DungeonGame", "controller onStartGame()");
+    public void onStartGame(int mazeSize) {
+        Log.i("DungeonGame", "creating maze of size " + mazeSize);
+
+        this.maze = new Maze(mazeSize);
 
         //bundle args and instantiate new fragment
         String mazeText = maze.toObscuredString(p);
