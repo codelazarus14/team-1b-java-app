@@ -3,6 +3,7 @@ package edu.vassar.cmpu203.dungeongame.view;
 import android.content.Context;
 import android.os.Bundle;
 import android.text.Editable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -60,6 +61,7 @@ public class LeaderboardFragment extends Fragment implements ILeaderboardView {
     public void updateEntries(String entryText) {
         String newlbText =  this.binding.leaderboardView.getText().toString() + "\n" + entryText;
         this.binding.leaderboardView.setText(newlbText);
+        lbText = newlbText;
     }
 
     @Override
@@ -71,5 +73,24 @@ public class LeaderboardFragment extends Fragment implements ILeaderboardView {
         InputMethodManager mgr = (InputMethodManager) this.requireActivity()
                 .getSystemService(Context.INPUT_METHOD_SERVICE);
         mgr.hideSoftInputFromWindow(nameEditText.getWindowToken(), 0);
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString(LEADERBOARD_TEXT, this.lbText);
+    }
+
+    @Override
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
+
+        if (savedInstanceState != null) this.lbText = savedInstanceState.getString(LEADERBOARD_TEXT);
+        Log.i("DungeonGame","savedInstanceState = " + savedInstanceState);
+
+        if (this.lbText != null) {
+            this.binding.leaderboardView.setText(lbText);
+            this.setAddedEntryConfiguration();
+        }
     }
 }
