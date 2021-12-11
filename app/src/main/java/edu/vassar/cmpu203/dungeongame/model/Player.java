@@ -5,7 +5,10 @@ import java.io.Serializable;
 public class Player implements Serializable {
     //position array, has x and y values for position
     int[] pos = new int[2];
+
+
     Chest chestRef = new Chest();
+    public int mazeScore = 0;
 
     /**
      * The Chest stores the possible different kinds of loot in an array and the positions of those

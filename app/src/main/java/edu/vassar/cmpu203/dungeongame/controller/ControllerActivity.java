@@ -130,10 +130,12 @@ public class ControllerActivity extends AppCompatActivity implements IMazeView.L
         //preserve player data, move to start and generate new maze
         int[] savedInventory = p.inventory;
         int savedNotes = p.notes;
+        int savedMazeScore = p.mazeScore;
         this.p = new Player(0, 0);
         p.inventory = savedInventory;
         p.notes = savedNotes;
-        this.onStartGame(maze.getSize() + 1);
+        p.mazeScore = savedMazeScore;
+        this.onStartGame(maze.getSize() + (int)(Math.random() * 3 + 1));
     }
 
     @Override
@@ -161,6 +163,8 @@ public class ControllerActivity extends AppCompatActivity implements IMazeView.L
             score += (p.inventory[i] * c.value[i]);
         }
         score += p.notes;
+        score += p.mazeScore;
+
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -240,6 +244,7 @@ public class ControllerActivity extends AppCompatActivity implements IMazeView.L
         Log.i("DungeonGame", "creating maze of size " + mazeSize);
 
         this.maze = new Maze(mazeSize);
+        p.mazeScore += mazeSize;
 
         //bundle args and instantiate new fragment
         String mazeText = maze.toObscuredString(p);
