@@ -27,7 +27,7 @@ class Inventory{
 class Loot{
     value
 }
-class Chest{
+class Interactable{
 }
 class Game{
 }
@@ -36,12 +36,12 @@ class Game{
 Game "1" -- "1" Player : Contains\t\t
 Game "1" -- "1" Maze : Contains
 Player "1" - "1" Maze : \tTraverses\t\t
-Maze "1" -- "1..*" Room : Contains
 Maze "1" - "1..*" Node : \tContains\t\t
 Player "1" -- "1" Inventory : Accesses\t\t
 Inventory "1" -- "*" Loot : Stores\t
-Chest "1" -- "1..*" Loot : Contains\t\t
-Room "1" - "*" Chest : \tContains\t\t
+Interactable "1" -- "1..*" Loot : Contains\t\t
+Interactable "1" -- "1" Node : Contains\t\t
+
 @enduml
 ```
 
