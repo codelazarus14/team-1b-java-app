@@ -1,26 +1,19 @@
 package edu.vassar.cmpu203.dungeongame.controller;
 
-import android.content.Context;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
-import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
-import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentFactory;
 
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FieldPath;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -29,11 +22,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 import edu.vassar.cmpu203.dungeongame.R;
+import edu.vassar.cmpu203.dungeongame.model.Chest;
 import edu.vassar.cmpu203.dungeongame.model.Interactable;
 import edu.vassar.cmpu203.dungeongame.model.Maze;
 import edu.vassar.cmpu203.dungeongame.model.Node;
 import edu.vassar.cmpu203.dungeongame.model.Player;
-import edu.vassar.cmpu203.dungeongame.model.Chest;
 import edu.vassar.cmpu203.dungeongame.view.ILeaderboardView;
 import edu.vassar.cmpu203.dungeongame.view.IMainView;
 import edu.vassar.cmpu203.dungeongame.view.IMazeView;
@@ -147,7 +140,8 @@ public class ControllerActivity extends AppCompatActivity implements IMazeView.L
     public void onGameOver(IMazeView mazeView) {
         Log.i("DungeonGame", "game over, switching to leaderboard");
 
-        //TODO - uncomment once leaderboard is implemented
+        //TODO - uncomment once leaderboard is implemented/remove if we're not
+        // showing the leaderboard before entering their name
 //        String lbText = this.leaderboardView.nameEditText
 //        Bundle fragArgs = LeaderboardFragment.makeArgsBundle(lbText);
         Fragment lbFrag = new LeaderboardFragment(this);
@@ -180,7 +174,7 @@ public class ControllerActivity extends AppCompatActivity implements IMazeView.L
         String newPlayerEntry = "" + score;
         while(newPlayerEntry.length() < 8) newPlayerEntry += " ";
         newPlayerEntry += name; // Name always starts at index 8
-        leaderboardView.updateLeaderboardView(newPlayerEntry + "\n\n");
+        leaderboardView.updateEntries(newPlayerEntry + "\n\n");
 
         db.collection("leaderboard")
                 .orderBy("score", Query.Direction.DESCENDING)
@@ -193,17 +187,12 @@ public class ControllerActivity extends AppCompatActivity implements IMazeView.L
                             String oldPlayerEntry = "" + dSnap.get("score");
                             while(oldPlayerEntry.length() < 8) oldPlayerEntry += " ";
                             oldPlayerEntry += dSnap.get("name"); // Name always starts at index 8
-                            leaderboardView.updateLeaderboardView(oldPlayerEntry);
+                            leaderboardView.updateEntries(oldPlayerEntry);
                         }
                     }
                 });
 
-        EditText nameEditText = (EditText) findViewById(R.id.nameEditText);
-        nameEditText.setVisibility(View.INVISIBLE);
-        Button nameConfirmButton = (Button) findViewById(R.id.nameConfirmButton);
-        nameConfirmButton.setVisibility(View.INVISIBLE);
-        InputMethodManager mgr = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-        mgr.hideSoftInputFromWindow(nameEditText.getWindowToken(), 0);
+        leaderboardView.setAddedEntryConfiguration();
     }
 
     public void onPlayerMoveInput(char dir) {
@@ -278,7 +267,7 @@ public class ControllerActivity extends AppCompatActivity implements IMazeView.L
 
     @Override
     public void onVolumeToggle(IMazeView mazeView) {
-        Button volumeButton = (Button) findViewById(R.id.volumeButton);
+        Button volumeButton = findViewById(R.id.volumeButton);
         if (mediaPlayer == null) {
             playMusic();
             volumeButton.setText("\uD83D\uDD0A");

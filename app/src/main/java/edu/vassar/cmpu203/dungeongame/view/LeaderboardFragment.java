@@ -1,19 +1,20 @@
 package edu.vassar.cmpu203.dungeongame.view;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.text.Editable;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
+import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import android.text.Editable;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
-import edu.vassar.cmpu203.dungeongame.R;
 import edu.vassar.cmpu203.dungeongame.databinding.FragmentLeaderboardBinding;
-import edu.vassar.cmpu203.dungeongame.databinding.FragmentMazeBinding;
 
 public class LeaderboardFragment extends Fragment implements ILeaderboardView {
 
@@ -56,8 +57,19 @@ public class LeaderboardFragment extends Fragment implements ILeaderboardView {
     }
 
     @Override
-    public void updateLeaderboardView(String lbText) {
-        String newlbText =  this.binding.leaderboardView.getText().toString() + "\n" + lbText;
+    public void updateEntries(String entryText) {
+        String newlbText =  this.binding.leaderboardView.getText().toString() + "\n" + entryText;
         this.binding.leaderboardView.setText(newlbText);
+    }
+
+    @Override
+    public void setAddedEntryConfiguration() {
+        EditText nameEditText = this.binding.nameEditText;
+        nameEditText.setVisibility(View.INVISIBLE);
+        Button nameConfirmButton = this.binding.nameConfirmButton;
+        nameConfirmButton.setVisibility(View.INVISIBLE);
+        InputMethodManager mgr = (InputMethodManager) this.requireActivity()
+                .getSystemService(Context.INPUT_METHOD_SERVICE);
+        mgr.hideSoftInputFromWindow(nameEditText.getWindowToken(), 0);
     }
 }

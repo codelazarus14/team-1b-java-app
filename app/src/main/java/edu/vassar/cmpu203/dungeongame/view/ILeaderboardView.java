@@ -5,5 +5,6 @@ public interface ILeaderboardView {
         void onPlayerNameInput(String name, ILeaderboardView leaderboardView);
         void onReturnToMenu(ILeaderboardView leaderboardView);
     }
-    void updateLeaderboardView(String lbText);
+    void updateEntries(String lbText);
+    void setAddedEntryConfiguration();
 }
