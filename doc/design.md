@@ -194,6 +194,40 @@ class ControllerActivity{
     onStartGame() : void
     onEnd() : void
 }
+
+class Interactable{
+    +id : String
+    accessed : boolean
+    titleText : String
+    bodyText : String
+--
+}
+
+class Note{
+    contents : String
+--
+}
+
+class Chest{
+    itemQuantity : int
+    itemType : int
+    itemName : String
+    loot : String[]
+    value : int[]
+--
+}
+
+class Mimic{
+--
+}
+
+class Nothing{
+--
+}
+
+class End{
+--
+}
  
 Maze *-left- "(size^2) \nmazeArray \n <ordered, Node[][]>" Node : \t\t\t\t\t
 Maze --> "(1)\ndjsTable" DisjointSets : \t\t\t
@@ -207,6 +241,12 @@ MenuFragment <|.. "IMenuView.Listener" ControllerActivity
 ControllerActivity -left> "(1)\nIMainView" MainView : \t\t
 ControllerActivity -> "(1)\nPlayer" Player : \t\t
 ControllerActivity -down> "(1)\nMaze\n" Maze :\t\t
+Interactable --> "1" Node
+Chest --> Interactable
+Nothing --> Interactable
+Mimic --> Interactable
+End --> Interactable
+Note --> Interactable
 
 @enduml
 '''
