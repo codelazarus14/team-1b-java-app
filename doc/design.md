@@ -8,6 +8,7 @@ hide empty methods
 'classes
 class Player{
     position
+    inventory
 }
 class Maze{
     size
@@ -16,8 +17,6 @@ class Maze{
 class Node{
     barriers
     position
-}
-class Inventory{
 }
 class Loot{
     value
@@ -32,10 +31,9 @@ Game "1" -- "1" Player : Contains\t\t
 Game "1" -- "1" Maze : Contains
 Player "1" - "1" Maze : \tTraverses\t\t
 Maze "1" - "1..*" Node : \tContains\t\t
-Player "1" -- "1" Inventory : Accesses\t\t
-Inventory "1" -- "*" Loot : Stores\t
-Interactable "1" -- "1..*" Loot : Contains\t\t
+Player "1" --  "*" Loot : Stores\t
 Interactable "1" -- "1" Node : Contains\t\t
+Interactable "1" -- "1..*" Loot : Contains\t\t
 
 @enduml
 ```
@@ -213,15 +211,6 @@ class Note{
 --
 }
 
-class Chest{
-    itemQuantity : int
-    itemType : int
-    itemName : String
-    loot : String[] = {String, String...}
-    value : int[] = {int, int...}
---
-}
-
 class Mimic{
 --
 }
@@ -231,6 +220,15 @@ class Nothing{
 }
 
 class End{
+--
+}
+
+class Chest{
+    itemQuantity : int
+    itemType : int
+    itemName : String
+    loot : String[] = {String, String...}
+    value : int[] = {int, int...}
 --
 }
  
