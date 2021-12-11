@@ -21,7 +21,8 @@
         android:visibility="visible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="LabelFor" />
+        tools:ignore="LabelFor"
+        android:maxLength="25"/>
 
     <Button
         android:id="@+id/nameConfirmButton"
@@ -50,7 +51,9 @@
             <TextView
                 android:id="@+id/leaderboardView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:fontFamily="monospace"
+                android:ellipsize="end"/>
         </LinearLayout>
     </ScrollView>
 

@@ -242,12 +242,12 @@ MenuFragment <|.. "IMenuView.Listener" ControllerActivity
 ControllerActivity -left> "(1)\nIMainView" MainView : \t\t
 ControllerActivity -> "(1)\nPlayer" Player : \t\t
 ControllerActivity -down> "(1)\nMaze\n" Maze :\t\t
-Interactable --up> "(1) nodeContents" Node
-Chest --> Interactable
-Nothing --> Interactable
-Mimic --> Interactable
-End --> Interactable
-Note --> Interactable
+Interactable --> "(1) nodeContents" Node
+Interactable <|.. Chest
+Interactable <|.. Nothing
+Interactable <|.. Mimic
+Interactable <|.. End
+Interactable <|.. Note
 
 @enduml
 '''
