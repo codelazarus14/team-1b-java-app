@@ -205,7 +205,6 @@ public class ControllerActivity extends AppCompatActivity implements IMazeView.L
         mgr.hideSoftInputFromWindow(nameEditText.getWindowToken(), 0);
     }
 
-    //:[
     public void onPlayerMoveInput(char dir) {
         Log.i("DungeonGame", "controller received player move, handling: " + dir);
         p.updatePos(dir, maze);
@@ -218,9 +217,6 @@ public class ControllerActivity extends AppCompatActivity implements IMazeView.L
         mazeFrag.setArguments(fragArgs);
         this.mainView.displayFragment(mazeFrag);
 
-        // I commented this out because this method is missing the view parameter
-        // so you can't access it when you need to show the dialog/reset button in the fragment
-//        if (maze.isEnd(p)) this.onEnd(this.mainView);
     }
 
     public boolean onKeyDown(int keyCode, KeyEvent event) {
