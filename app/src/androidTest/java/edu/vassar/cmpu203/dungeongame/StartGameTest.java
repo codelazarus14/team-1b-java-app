@@ -22,7 +22,7 @@ public class StartGameTest {
      * Tests start menu and switching to maze fragment
      */
     @Test
-    public void testStartButton() {
+    public void testStartGame() {
         // checks that menu fragment is displayed on launch
         ViewInteraction startText = Espresso.onView(ViewMatchers.withId(R.id.menuTitleText));
         startText.check(ViewAssertions.matches(ViewMatchers.withText(R.string.main_menu_title)));
