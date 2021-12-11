@@ -127,7 +127,8 @@ class Maze{
 class Node{
     rbarrier : boolean
     dbarrier : boolean
-    index : int {range=[0, n^2]}
+    id : int {range=[0, n^2]}
+    nodeContents : Interactable
 }
 
 class Pair{
@@ -241,7 +242,7 @@ MenuFragment <|.. "IMenuView.Listener" ControllerActivity
 ControllerActivity -left> "(1)\nIMainView" MainView : \t\t
 ControllerActivity -> "(1)\nPlayer" Player : \t\t
 ControllerActivity -down> "(1)\nMaze\n" Maze :\t\t
-Interactable --> "1" Node
+Interactable --up> "(1) nodeContents" Node
 Chest --> Interactable
 Nothing --> Interactable
 Mimic --> Interactable
