@@ -111,6 +111,10 @@ skinparam classAttributeIconSize 0
 
 class Player{
     pos : int[] = {int, int}
+    chestRef : Chest
+    mazeScore : int
+    inventory : int[] = {int, int, int...}
+    notes : int
 --
     getPos() : int[]
     updatePos (int dir) : void
@@ -119,9 +123,14 @@ class Player{
 class Maze{
     +size : int
     mazeTable : ArrayList<Pair>
+    djsTable : DisjointSets
+    adjTable : ArrayList<Pair>
+    mazeArray : Node[][]
 --
-    checkValid(pos) : boolean
+    checkValid(int[] pos, char dir) : boolean
     toObscuredString(Player) : String
+    isEnd(Player) : boolean
+    getSize() : int
 }
 
 class Node{
@@ -213,8 +222,8 @@ class Chest{
     itemQuantity : int
     itemType : int
     itemName : String
-    loot : String[]
-    value : int[]
+    loot : String[] = {String, String...}
+    value : int[] = {int, int...}
 --
 }
 
