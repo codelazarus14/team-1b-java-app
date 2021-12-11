@@ -19,12 +19,27 @@ public class Maze implements Serializable {
     ArrayList<Pair> adjTable; //This will record the final set of pairs which is used in djsTable's chain
     /* The mazeTable consists of a ton of pairs, and as a whole consists of
     All the adjacencies between given Nodes (grid blocks) */
+
+    /**
+     * This is the Big Cahoona- the Maze generation.
+     * As we do it, the Maze generation proceeds in four phases:
+     * Phase 1: Constructor creates a 2D Array of Nodes, which all have their walls up by default.
+     * It's basically a grid.
+     * Phase 2: A Kruskal-Based maze generator goes through and uses disjoint sets and equivalency
+     * classes to create a fully traversable maze.
+     * Phase 3: Constructor creates a size-dependant number of "rooms" which are essentially
+     * rectangular areas in which all walls are broken. This allows for open spaces and loops
+     * Phase 4: Constructor goes through and places Chests, Notes, and Mimics until a size-dependant
+     * number of said objects are placed, preferring Nooks and then Hallways.
+     * @param size
+     */
     public Maze(int size) {
         this.yaxis = size; //y axis value
         this.xaxis = size; //x axis value
         this.mazeArray = new Node[xaxis][yaxis];
         this.mazeTable = new ArrayList<>();
         int nodeCounter = 0;
+        //Phase 1: Maze is a grid
         for (int i = 0; i < yaxis; i++) {
             //At this phase in implementation, a Maze is basically a 2D array which goes [x][y]
             for (int j = 0; j < xaxis; j++) {
@@ -55,9 +70,11 @@ public class Maze implements Serializable {
                 }
             }
         }
-        /* This method creates the actual maze. At total random, pairs will be picked from the mazeTable created in the Maze class
-         *  until all the viable disjoints have been consumed and the rest are all discarded. The viable ones are all stored in the adjacency table
-         * Then the method goes through the adjacency table and breaks down the barriers between the paired mazeArray in the table */
+        /** Phase 2:
+         * This section of code creates the actual "maze". At total random, pairs will be picked from the mazeTable created in the Maze class
+         * until all the viable disjoints have been consumed and the rest are all discarded. The viable ones are all stored in adjTable
+         * Then the method goes through adjTable and breaks down the barriers between the pairs
+         * This is all in keeping with a Kruskal-based generation.*/
         int totalSize = (xaxis * (yaxis - 1)) + (yaxis * (xaxis - 1)); //Mathematically, this is the amount of Pairs as should have been generated in mazeTable
         djsTable = new DisjointSets(); //this creates the path of the maze and determines if a given pair is a valid addition
         adjTable = new ArrayList<>(); //if a pair is a valid addition, it will be added to this, which is the final maze path
@@ -91,11 +108,13 @@ public class Maze implements Serializable {
             }
         }
 
-        /* Room Generator-
-         For this implementation, a room is not a special object or anyways different from just hallway
-         This essentially creates square/rectangular spaces inside of which the walls are all broken
-         Though it does not break or create any new walls along the edge of the room.
-         This is a very basic way of getting around the Kruskal method's thing of not creating loops
+        /**
+         * Phase 3:
+         * Room Generator-
+         * For our implementation, a room is not a special object or anyways different from just hallway
+         * This essentially creates square/rectangular spaces inside of which the walls are all broken
+         * Though it does not break or create any new walls along the edge of the room.
+         * This is a very basic way of getting around the Kruskal method's thing of not creating loops
          */
         int roomCount = xaxis / 4;
         while (roomCount >= 0) {
@@ -121,9 +140,8 @@ public class Maze implements Serializable {
             }
             roomCount--;
         }
-
-        /*
-         * This is the prototype version of the code to create chest or note placements
+        /** Phase 4
+         * This is the code for interactable objects throughout the maze
          */
         int interactableQuantity = size * size / 12; //This is how many chests there will be
         if (interactableQuantity == 0) { //If the previous gives a no, there will always be at least 1 chest
@@ -134,11 +152,10 @@ public class Maze implements Serializable {
             int xCoord = randomPlacement % size;
             int yCoord = (randomPlacement - xCoord) / size;
             int wallCount = 0;
-            /*
-             * to explain the following code: The chest placement is made as to prefer nodes which have
+            /**
+             * to explain the following code: The chest/note/mimic placement is made as to prefer nodes which have
              * 3 walls. Nooks or ends of Hallways, essentially. Hopefully this means there will be SOMETHING
-             * at the end of that hallway. On nodes with 2 walls, the chance that it will put a chest there
-             * is 1/3.
+             * at the end of that hallway. There is also a chance that it will choose nodes with only 2 walls.
              */
             for (char dir: new char[] {'u', 'r','d','l'}) {
                 wallCount += checkValid(new int[] {xCoord, yCoord},dir) ? 0 : 1;
@@ -183,12 +200,16 @@ public class Maze implements Serializable {
     }
 
 
-
+    /**
+     * This method checks if a move in a given direction will be valid or not
+     * "valid" being if there is a wall in the way or not
+     * In the case of moving to the left or moving up, the wall values of the destination
+     * Node are checked instead, as our Nodes do not carry Up and Left wall information
+     * @param pos
+     * @param dir
+     * @return boolean
+     */
     public boolean checkValid(int[] pos, char dir) {
-        //This method checks if a move in a given direction will be valid or not
-        //"valid" being if there is a wall in the way or not
-        /* Up and Left have subcases because Node do not carry left or up wall information in them
-        So checkValid calculates the validity. If x == 0, it is at the top edge. if y % yaxis == 0, it is at the left edge  */
         int x = pos[0];
         int y = pos[1];
         boolean validity = true;
@@ -215,10 +236,9 @@ public class Maze implements Serializable {
         return validity;
     }
 
-    /*This toString is just used if we want to be able to see the entire maze at once
+    /** This toString is just used if we want to be able to see the entire maze at once
      * and is not part of the final product
      */
-
     public String toString() {
         String out = "";
         char lSymbol = 8838;
@@ -251,12 +271,15 @@ public class Maze implements Serializable {
         return out;
     }
 
+
+    /**
+     * This method draws out the limited, 3x3 view of the Maze
+     * @param p
+     * @return String
+     */
     public String toObscuredString(Player p) {
         String out = "";
         String avatar;
-//        char lSymbol = 8838;
-//        char rSymbol = 8839;
-//        avatar = Character.toString(lSymbol) + Character.toString(rSymbol);
         avatar = "[]";
         int size = xaxis;
 
@@ -338,15 +361,6 @@ public class Maze implements Serializable {
             }
             visibleNode[2][0] = down || left;
         }
-
-//        String visibility = "";
-//        for (int i = 0; i < 3; i++) {
-//            for (int j = 0; j < 3; j++){
-//                visibility += visibleNode[i][j] ? "t " : "f ";
-//            }
-//            visibility += "\n";
-//        }
-//        System.out.println(visibility);
 
         for (int j = jPos - 1; j < jPos + 2; j++) {
             int arrJ = j + 1 - jPos;

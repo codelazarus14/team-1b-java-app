@@ -63,7 +63,7 @@ public class Chest extends Interactable{
 
         this.bodyText += ".\n\n";
         int remainingChests = (int) (Math.random() * 10);
-        /*
+        /**
          * The game will tell you a random amount of chests and essentially lie to you
          * all in service of 👏 Hostile Design 👏, of course
          * But this isn't a bug: it's a feature

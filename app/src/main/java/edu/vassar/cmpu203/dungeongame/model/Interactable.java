@@ -2,9 +2,9 @@ package edu.vassar.cmpu203.dungeongame.model;
 import java.io.Serializable;
 import java.lang.Math;
 
-/*
+/**
  * This is the generalized superclass for all Interactable objects
- * Those being chests, notes, Mimics, and "nothing"
+ * Those being chests, notes, Mimics, End, and "Nothing"
  */
 
 public class Interactable implements Serializable {

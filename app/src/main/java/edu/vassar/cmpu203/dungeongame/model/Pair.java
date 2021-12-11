@@ -5,7 +5,8 @@ import java.io.Serializable;
 public class Pair implements Serializable {
     int node1;
     int node2;
-    /*This is a homemade Pair class for use in making the adjacency table
+    /**
+    This is a homemade Pair class for use in making the adjacency table
     * It just consists of id's of the two mazeArray in an adjacency
      */
     public Pair(int node1, int node2) {

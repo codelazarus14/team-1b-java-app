@@ -12,7 +12,7 @@ public class DisjointSets implements Serializable {
 
 
         public boolean addPair(Pair n){
-        /* In this method the input pair is taken and the method sees if either, both, or neither of the mazeArray in the pair
+        /** In this method the input pair is taken and the method sees if either, both, or neither of the mazeArray in the pair
          *  Are already a part of one of the sets in the disjoint */
         boolean validAdd = true;
         if (n == null) { return false;}
@@ -24,7 +24,7 @@ public class DisjointSets implements Serializable {
         ArrayList<Integer> newSet = new ArrayList<>();
             for (int i = 0; i < disjointSets.size(); i++) {
                 for (int j = 0; j < disjointSets.get(i).size(); j++) {
-                    /* This iterates through all of the elements of each list and if the node id is present within
+                    /** This iterates through all of the elements of each list and if the node id is present within
                      *  a given list, the index of that list (not its position within the sublist) is recorded
                      *  if it is totally absent, its position will be a -1 */
                     if (disjointSets.get(i).get(j) == node1) { node1Pos = i; }

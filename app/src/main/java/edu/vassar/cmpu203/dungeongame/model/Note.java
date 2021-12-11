@@ -1,9 +1,9 @@
 package edu.vassar.cmpu203.dungeongame.model;
 
 
-/*
- * "Something is there" case: There is a note placed with random text
- * I honestly had no idea what to use here so this is just snippets of the Bee movie Script
+/**
+ * "Something is there" case: There is a note placed with random text taken from a variety
+ * of sources
  */
 public class Note extends Interactable {
     String contents;
