@@ -17,11 +17,6 @@ class Node{
     barriers
     position
 }
-class Room{
-    position
-    size
-    shape
-}
 class Inventory{
 }
 class Loot{
