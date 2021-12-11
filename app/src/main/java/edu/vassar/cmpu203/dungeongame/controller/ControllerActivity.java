@@ -122,7 +122,8 @@ public class ControllerActivity extends AppCompatActivity implements IMazeView.L
         if (p.notes > 0) {
             inventoryString += "Notes: x" + p.notes; }
         if (inventoryString == "") {
-            inventoryString = "Empty. Just like you.";
+            // this uses strings.xml to be more easily testable
+            inventoryString = getResources().getString(R.string.inventory_default_text);
         }
         Interactable workAround = new Interactable();
         workAround.bodyText = inventoryString;
