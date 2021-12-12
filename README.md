@@ -38,6 +38,8 @@
    3. Mimics appear as Chests but will steal x amount of a random item from player inventory
    4. Nothing is the default case and nothing will happen when interacted with
    5. End is only at the bottom right cornser and is used to trigger the next level/quit options popup
+7. Music
+   1. Homemade Music added to game along with button to disaible or enable music
 
 ### Final Submission Limitations
 1. No Authentication
