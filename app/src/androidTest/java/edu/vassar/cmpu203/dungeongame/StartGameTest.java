@@ -59,6 +59,6 @@ public class StartGameTest {
         diff.perform(ViewActions.click());
         ViewInteraction diffSpinnerSelect = Espresso.onView(ViewMatchers.withId(R.id.difficultySpinner));
         diffSpinnerSelect.check(ViewAssertions.matches(ViewMatchers
-                                .withSpinnerText(Matchers.containsString("Medium"))));
+                .withSpinnerText(Matchers.containsString("Medium"))));
     }
 }
