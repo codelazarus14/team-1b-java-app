@@ -41,6 +41,8 @@
 
 ### Final Submission Limitations
 1. No Authentication
+2. Very difficult to test the leaderboard view because it is very difficuly to simulate/create a <br />
+program which can solve our maze so that we can see its result on the leaderboard
 
 ### Final Submission Functionality
 1. Run app, select difficutly if desired, and press Start on main menu
