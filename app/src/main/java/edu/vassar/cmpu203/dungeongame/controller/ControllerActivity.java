@@ -141,14 +141,7 @@ public class ControllerActivity extends AppCompatActivity implements IMazeView.L
     @Override
     public void onGameOver(IMazeView mazeView) {
         Log.i("DungeonGame", "game over, switching to leaderboard");
-
-        //TODO - uncomment once leaderboard is implemented/remove if we're not
-        // showing the leaderboard before entering their name
-//        String lbText = this.leaderboardView.nameEditText
-//        Bundle fragArgs = LeaderboardFragment.makeArgsBundle(lbText);
         Fragment lbFrag = new LeaderboardFragment(this);
-//        lbFrag.setArguments(fragArgs);
-//
         this.mainView.displayFragment(lbFrag);
 
         stopMusic();
@@ -156,8 +149,6 @@ public class ControllerActivity extends AppCompatActivity implements IMazeView.L
 
     @Override
     public void onPlayerNameInput(String name, ILeaderboardView leaderboardView) {
-        //TODO - add player name + score to leaderboard and call
-        // leaderboardView.updateLeaderboardView(leaderboardText);
         int score = 0;
         for (int i = 0; i < c.value.length; i++) {
             score += (p.inventory[i] * c.value[i]);
