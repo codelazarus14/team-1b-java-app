@@ -43,6 +43,7 @@
 1. No Authentication
 
 ### Final Submission Functionality
-1. Run app and press Start on main menu
+1. Run app, select difficutly if desired, and press Start on main menu
 2. Tap visible arrow buttons or (on desktop) use arrow keys/WASD to traverse the maze
-3. When at end of maze, press interact button and either proceed to next level or quit game
+3. When on an interactable press interact to collect items, read note, or get got by a mimic
+4. When at end of maze, press interact button and either proceed to next level or quit game
