@@ -1,3 +1,5 @@
+*Below is the README from the original repository hosted on the private CS department GitLab server. My main contributions to this project were the interface (fragments) and the MVC controller.*
+
 # Team 1B
 # ***Final Iteration***
 ### Final Submission Functionality
